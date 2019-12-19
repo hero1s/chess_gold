@@ -11,7 +11,7 @@ if [ $# -gt 0 ]; then
         echo "check center svr:"$svrid" pid "${pid}
         processnum=`ps ax | awk '{ print $1 }' | grep ${pid}$ | grep server | grep -v grep | wc -l`
         if [ $processnum -lt 1 ];then
-            ./centerServer --sid ${svrid} --cfg "../server_config/server_config.lua" &
+            ./centerServer --sid ${svrid} --logmysql "mysqlerror.txt" --cfg "../server_config/server_config.lua" &
         else
             echo "restart center server fail: "$svrid
         fi
@@ -24,7 +24,7 @@ else
         echo "check center svr:"$svrid" pid "${pid}
         processnum=`ps ax | awk '{ print $1 }' | grep ${pid}$  | grep -v grep | wc -l`
         if [ $processnum -lt 1 ];then
-            ./centerServer --sid ${svrid} --cfg "../server_config/server_config.lua" &
+            ./centerServer --sid ${svrid} --logmysql "mysqlerror.txt" --cfg "../server_config/server_config.lua" &
         fi
     done
 fi

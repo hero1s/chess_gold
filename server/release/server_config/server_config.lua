@@ -11,8 +11,8 @@ database_dbname[2] = "chess_center";
 database_dbname[3] = "chess_log";
 
 --redis配置
-local redis_config = { host = "127.0.0.1",port = 9221,passwd="e2345" };
---local redis_config = { host = "139.199.209.147",port = 13000,passwd="e2345" };
+--local redis_config = { host = "127.0.0.1",port = 9221,passwd="e2345" };
+local redis_config = { host = "139.199.209.147",port = 13000,passwd="e2345" };
 --local redis_config = { host = "192.168.1.153",port = 13000,passwd="e2345" };
 --开启mysql的服务器id
 local open_sql_sids = {1,2};
@@ -20,9 +20,9 @@ local open_sql_sids = {1,2};
 --全局配置信息
 server_config =
 {
-    center = { ip = "127.0.0.1",port = 8888,name = "中心服"},
-    lobby  = {  [1] = { ip = "192.168.3.221",lanip = "127.0.0.1",port = 7777,in_port = 7778,php_port = 7779,name = "大厅服1"},
-                [2] = { ip = "192.168.3.221",lanip = "127.0.0.1",port = 6777,in_port = 6778,php_port = 6779,name = "大厅服2"},
+    center = { ip = "127.0.0.1",port = 4888,name = "中心服"},
+    lobby  = {  [1] = { ip = "0.0.0.0",lanip = "127.0.0.1",port = 4777,in_port = 4778,php_port = 4779,name = "大厅服1"},
+                [2] = { ip = "0.0.0.0",lanip = "127.0.0.1",port = 3777,in_port = 3778,php_port = 3779,name = "大厅服2"},
              },
 }
 --游戏服配置
