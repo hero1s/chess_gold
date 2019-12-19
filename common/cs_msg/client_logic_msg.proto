@@ -1,0 +1,344 @@
+syntax = "proto3";
+package net.cli;
+import "base_msg_struct.proto";
+
+
+//-----------------------------大厅服消息-------------------------------------------------------------------
+// 心跳包
+message msg_heart_test
+{
+	uint32 svr_time = 1;
+}
+// 登录
+message msg_login_req
+{
+	uint32 uid  		= 1;		// 帐号ID
+	bytes  key  		= 2;		// 密码		
+	bytes  deviceid		= 3;		// 设备ID
+	bytes  versionid	= 4;		// 版本号
+	uint32 check_time   = 5;		// 校验时间
+}
+// 登录返回
+message msg_login_rep
+{
+	uint32 result 		= 1;	// 返回结果
+	uint32 server_time = 2;	// 服务器时间
+}
+// 退出通知
+message msg_loginout_rep
+{
+	uint32 reason 		= 1;	// 退出原因
+	bytes  deviceid		= 2;	// 设备ID
+}
+// 版本信息
+message msg_version_info_rep
+{
+	bytes version = 1; // 版本信息
+}
+
+// 通知进入游戏
+message msg_enter_game_rep
+{
+	uint32 result = 1;	
+}
+// 发送玩家信息
+message msg_player_data_rep
+{	
+	base_info  base_data = 1;	// 基本信息		
+}
+// 更新玩家数值
+message msg_update_acc_value
+{
+	int64	coin 			= 1;				// 金币		
+	int64  safe_coin		= 2;				// 保险箱财富币		
+}
+// 请求服务器信息
+message msg_svrs_info_req
+{
+	uint32  game_type = 1;	
+} 
+// 发送游戏服务器信息
+message msg_svrs_info_rep
+{
+	repeated svr_info svrs 			= 1; // 游戏服务器信息
+	uint32   cur_svrid 	= 2; // 当前游戏服务器ID(断线重连处理)
+	uint32	  cur_game_type = 3; // 当前游戏类型
+}
+// 进入游戏服务器
+message msg_enter_gamesvr_req
+{
+	uint32 game_type   = 1; // 游戏类型
+}
+// 进入游戏服务器返回
+message msg_enter_gamesvr_rep
+{
+	uint32 result 		= 1;
+	uint32 svrid  		= 2;
+	uint32 game_type	= 3;
+}
+
+// 上报GPS定位信息
+message msg_report_gps
+{
+	double lon			= 1; // 经纬度
+	double lat			= 2; // 经纬度
+}
+
+// 上报网络延迟
+message msg_report_net_delay
+{
+	uint32 delay 		= 1; // 网络延迟
+	bytes  net_name 	= 2; // 网络名称
+}
+// 请求游戏录像
+message msg_get_game_record
+{
+	bytes chessid 		= 1; // 录像id
+}
+// 返回游戏录像
+message msg_get_game_record_rep
+{
+	uint32 		ret			= 1; // 结果(0,不存在，1成功)
+	game_record	record		= 2; // 录像数据 
+}
+//-----------------任务------------------------------------------------------------------------------------
+//获得所有任务数据
+message msg_send_all_mission_rep
+{
+	repeated mission_data missions = 1;//任务数据
+}
+//发送单条任务数据
+message msg_send_mission_rep
+{
+	mission_data mission = 1; //单条任务数据
+}
+//获得用户奖励
+message msg_get_mission_prize_req
+{
+	uint32 msid = 1;
+}
+message msg_get_mission_prize_rep
+{
+	uint32 result = 1;
+	mission_data mission = 2;
+}
+
+
+//----------------------------------------游戏服消息-------------------------------------------
+// 返回大厅
+message msg_back_lobby_req
+{
+	uint32 uid 	  = 1;
+	uint32 is_action = 2;// 是否服务器主动
+}
+// 返回大厅反馈
+message msg_back_lobby_rep
+{
+	uint32 result = 1;	
+	uint32 reason = 2; // 返回原因
+}
+
+
+// 请求房间列表信息
+message msg_rooms_info_req
+{
+	uint32 game_type = 1;//(大厅请求时才需赋值)	
+}
+// 发送游戏房间列表
+message msg_rooms_info_rep
+{
+	repeated room_info rooms 	= 1; // 房间信息
+	uint32 cur_roomid	= 2; // 当前房间ID(断线重连处理)
+}
+
+// 进入房间
+message msg_enter_room_req
+{
+	uint32 room_id = 1;	
+}
+// 进入房间返回
+message msg_enter_room_rep
+{
+	uint32 	result 		= 1; // 进入房间结果(0失败，1成功)	
+	room_info  room   		= 2; // 进入的房间信息
+	int64      cur_table 	= 3; // 当前所在桌子(0,新进，其它断线重连处理)
+	
+}
+
+// 通知离开房间
+message msg_notify_leave_room_rep
+{
+	uint32 leave_type = 1; // 离开原因(xxx)	
+}
+// 请求桌子列表
+message msg_table_list_req
+{	
+	uint32 game_type	= 1; // 游戏类型
+	uint32 play_type   = 2; // 游戏玩法
+}
+// 桌子列表
+message msg_table_list_rep
+{
+	repeated table_info tables 	     = 1; // 桌子列表	
+	uint32 game_type		 = 2; // 游戏类型
+	uint32 is_alter		 = 3; // 变更或者刷新(0重置1增量或修改2删除)
+	uint32 play_type		 = 4; // 游戏玩法
+}
+// 离开桌子
+message msg_leave_table_req
+{
+	int64 table_id = 1;
+}
+// 离开桌子返回
+message msg_leave_table_rep
+{
+	uint32 result 		= 1; // 离开桌子返回
+	uint32 leave_type	= 2; // 离开类型(0正常离开，1服务器踢出)
+}
+// 进入桌子
+message msg_enter_table_req
+{
+	int64  table_id = 1; // 桌子ID
+}
+//  进入桌子返回
+message msg_enter_table_rep
+{
+	int64  table_id = 1;
+	uint32 result   = 2;
+}
+// 桌子信息
+message msg_table_info_rep
+{	
+	table_info	table_info  = 1; // 桌子信息
+}
+// 座位信息
+message msg_seat_info_rep
+{
+	repeated seat_info 	players 	= 1; // 玩家信息	
+}
+// 桌子准备
+message msg_table_ready_req
+{
+	uint32 ready = 1;
+}
+// 桌子准备返回
+message msg_table_ready_rep
+{
+	repeated uint32 readys 		= 1;  // 准备状态
+	repeated uint32 auto_states = 2;  // 托管状态
+}
+// 桌子聊天
+message msg_table_chat_req
+{
+	bytes  chat_msg = 1;
+}
+// 桌子聊天
+message msg_table_chat_rep
+{
+	uint32 uid 	 = 1;
+	bytes  chat_msg = 2;
+}
+//  托管
+message msg_table_set_auto_req
+{
+	uint32 auto_type = 1;// 1托管，0取消托管
+}
+message msg_table_set_auto_rep
+{
+	uint32 result 		= 1;// 操作结果
+	uint32 auto_state  = 2;// 托管状态
+}
+// 快速进入房间
+message msg_fast_join_room_req
+{
+	uint32 consume 	= 1;// 消费类型	
+}
+// 快速进入房间返回
+message msg_fast_join_room_rep
+{
+	uint32 result 		= 1;// 加入返回
+}
+// 快速进桌
+message msg_fast_join_table_req
+{
+	int64 table_id    = 1;// 快速换桌
+}
+// 快速进桌返回
+message msg_fast_join_table_rep
+{
+	uint32 result		= 1;// 快速换桌返回 	
+}
+// 查看桌子信息
+message msg_query_table_list_req
+{
+	uint32 startid 		= 1; // 起始ID
+	uint32 endid			= 2; // 终止ID		
+}
+// 桌子列表
+message msg_query_table_list_rep
+{
+	repeated table_info  tables = 1; // 桌子列表	
+	uint32 table_num	= 2; // 桌子数量
+}
+// 玩家信息变更
+message msg_notify_player_join_rep
+{
+	uint32     	join_leave 	= 1; // 进入或者离开  	
+	looker_info 	player 		= 2; // 玩家信息	
+}
+// 座位信息
+message msg_looker_list_info_rep
+{
+	repeated looker_info lookers 	= 1; // 旁观玩家信息
+	uint32 	 is_reset   = 2; // 是否重置	
+}
+// 玩家坐下或者站起
+message msg_sitdown_standup_req
+{
+	uint32 oper_id 	= 1; // 1坐下0站起
+	uint32 chair_id	= 2; // 座位ID
+}
+// 玩家坐下或者站起返回
+message msg_sitdown_standup_rep
+{
+	uint32 oper_id 	= 1; // 1坐下0站起
+	uint32 chair_id	= 2; // 座位ID
+	uint32 result		= 3; // 结果
+}
+// 座位信息
+message msg_seat_value_info_rep
+{
+	repeated seat_value_info  players = 1; 	// 玩家数值信息	
+	uint32 show_change = 2; 				// 显示飘分
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

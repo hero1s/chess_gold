@@ -1,0 +1,142 @@
+syntax = "proto3";
+package net;
+
+// 平台消息ID
+enum  PHP_MSG_ID
+{
+	PLAT_MSG_NULL				  =  0;
+	PLAT_MSG_PING				  =  10;  // 测试可用状态
+	PLAT_MSG_CHANGE_SAFEPWD  	  =  11;  // 修改保险箱密码 	
+	PLAT_MSG_KILL_PLAYER		  =  12;  // 踢出玩家
+	PLAT_MSG_CHANGE_ACCVALUE 	  =  13;  // 修改玩家数值 
+	PLAT_MSG_BROADCAST			  =  14;  // 广播消息
+	
+}
+
+
+// 客户端消息ID
+enum  CLIENT_MSG_ID
+{
+	C2S_MSG_NULL						= 0;
+	C2S_MSG_HEART						= 1000;	// 心跳包
+	C2S_MSG_LOGIN 	        			= 1001;	// 登录
+	S2C_MSG_LOGIN_REP					= 1002;	// 登录返回
+	S2C_MSG_LOGINOUT_REP				= 1003; // 登出通知
+	S2C_MSG_VERSION_INFO_REP			= 1004; // 版本信息
+
+	S2C_MSG_ENTER_GAME					= 1010;	// 通知进入游戏
+	S2C_MSG_PLAYER_INFO					= 1011;	// 玩家信息
+	S2C_MSG_UPDATE_ACC_VALUE			= 1012;	// 更新玩家数值
+
+	C2S_MSG_REQ_SVRS_INFO				= 1100;	// 请求服务器信息
+	S2C_MSG_SVRS_INFO					= 1101;	// 发送游戏服务器信息	
+	C2S_MSG_ENTER_SVR					= 1102;	// 进入游戏服务器
+	S2C_MSG_ENTER_SVR_REP				= 1103;	// 进入游戏服务器返回
+	
+	C2S_MSG_REPORT_GPS					= 1201;	// 上报gps经纬度
+	C2S_MSG_REPORT_NET_DELAY			= 1202; // 上报网络延迟
+	C2S_MSG_GET_GAME_RECORD				= 1203; // 请求游戏录像
+	S2C_MSG_GET_GAME_RECORD_REP			= 1204; // 请求游戏录像返回
+	
+	S2C_MSG_SEND_ALL_MISSION_REP 		= 1210; // 全部任务数据 
+	S2C_MSG_SEND_MISSION_REP 			= 1211;	// 单条任务数据	
+	C2S_MSG_GET_MISSION_PRIZE_REQ 		= 1212; // 领取任务奖励
+	S2C_MSG_GET_MISSION_PRIZE_REP 		= 1213; // 发放任务奖励
+	
+	//------------------------------------游戏服消息-----------------------------------------------------
+	C2S_MSG_BACK_LOBBY					= 2001; // 返回大厅
+	S2C_MSG_BACK_LOBBY_REP				= 2002; // 返回大厅反馈
+	
+	C2S_MSG_REQ_ROOMS_INFO				= 2009;// 请求房间列表信息
+	S2C_MSG_ROOMS_INFO					= 2010;// 发送游戏房间列表
+	
+	C2S_MSG_ENTER_ROOM					= 2011;// 进入房间
+	S2C_MSG_ENTER_ROOM_REP				= 2012;// 进入房间返回
+	S2C_MSG_NOTIFY_LEAVE_ROOM			= 2013;// 通知离开房间
+	
+	C2S_MSG_REQ_TABLE_LIST				= 2014;// 请求桌子列表
+	S2C_MSG_TABLE_LIST					= 2015;// 桌子列表
+	
+	C2S_MSG_LEAVE_TABLE_REQ				= 2020;// 请求离开桌子
+	S2C_MSG_LEAVE_TABLE_REP				= 2021;// 离开桌子返回
+
+	C2S_MSG_ENTER_TABLE_REQ				= 2024;// 进入桌子
+	S2C_MSG_ENTER_TABLE					= 2025;// 进入桌子返回
+	S2C_MSG_TABLE_INFO					= 2026;// 桌子信息
+	S2C_MSG_SEATS_INFO					= 2027;// 座位信息
+
+	C2S_MSG_TABLE_READY					= 2028;// 桌子准备
+	S2C_MSG_TABLE_READY_REP				= 2029;// 桌子准备返回
+
+	C2S_MSG_TABLE_CHAT					= 2030;// 桌子聊天
+	S2C_MSG_TABLE_CHAT					= 2031;// 桌子聊天
+
+	C2S_MSG_TABLE_SET_AUTO				= 2032;// 桌子托管设置
+	S2C_MSG_TABLE_SET_AUTO				= 2033;// 桌子托管设置
+
+	C2S_MSG_FAST_JOIN_ROOM				= 2040;// 快速开始
+	S2C_MSG_FAST_JOIN_ROOM_REP  		= 2041;// 快速开始
+	C2S_MSG_FAST_JOIN_TABLE				= 2042;// 快速换桌
+	S2C_MSG_FAST_JOIN_TABLE_REP			= 2043;// 快速换桌
+
+	C2S_MSG_QUERY_TABLE_LIST_REQ		= 2045;// 查看桌子
+	S2C_MSG_QUERY_TABLE_LIST_REP		= 2046;// 查看桌子返回
+	
+	S2C_MSG_NOTIFY_PLAYER_JOIN			= 2047;// 通知玩家进入
+	S2C_MSG_LOOKER_LIST_INFO			= 2048;// 旁观者列表
+	
+	C2S_MSG_SITDOWN_STANDUP				= 2049;// 坐下站起
+	S2C_MSG_SITDOWN_STANDUP				= 2050;// 坐下站起
+		
+	S2C_MSG_SEAT_VALUE_INFO_REP			= 2055;// 刷新座位数值信息
+
+	
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

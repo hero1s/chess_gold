@@ -1,0 +1,148 @@
+syntax = "proto3";
+package net.svr;
+import "base_msg_struct.proto";
+
+
+// 服务器消息ID
+enum  SERVER_MSG_ID
+{
+//------------------------------通用----------------------------------------------
+	S2S_MSG_NULL							= 0;
+	S2S_MSG_REGISTER						= 201;  // 注册
+	S2S_MSG_REGISTER_REP					= 202;	// 注册返回	
+	S2S_MSG_SERVER_LIST_REP					= 203;	// 服务器列表
+	S2S_MSG_CHANGE_SERVER_INFO				= 204;	// 变更服务器信息
+
+//-----------------------------游戏服----------------------------------------------------	
+	GS2L_MSG_REPORT							= 501;	// 服务器上报信息
+	GS2L_MSG_LEAVE_SVR						= 502;	// 返回大厅	
+	L2GS_MSG_NOTIFY_NET_STATE				= 503;	// 通知网络状态
+	L2GS_MSG_ENTER_INTO_SVR					= 504;	// 进入游戏服务器
+	GS2L_MSG_NOTIFY_PLAYER_LOBBY_LOGIN   	= 505;	// 登录通知
+	L2GS_MSG_FLUSH_CHANGE_ACC_DATA  		= 506;  // 修改游戏数值
+	GS2L_MSG_REPORT_GAME_RESULT				= 507;	// 上报游戏战报
+	GS2L_MSG_NOTIFY_CHANGE_ACCOUNT_DATA  	= 508; 	// 修改游戏数值
+	
+}
+
+// -------------------------------------------------------------------------------------
+
+message server_info
+{
+	uint32 svrid  	   	 			= 1;		// 服务器ID
+	uint32 svr_type     			= 2;		// 服务器类型
+	uint32 game_type  	 			= 3;		// 游戏类型
+	repeated uint32 play_types 	 	= 4;		// 游戏玩法类型
+	bytes  uuid		 				= 5;		// 服务器uuid
+	uint32 status		 			= 6;		// 服务器状态
+}
+// 注册
+message msg_register_svr_req
+{
+	server_info info 	 = 1;		// 服务器信息
+}
+message msg_register_svr_rep
+{
+	uint32 result 		 = 1;		// 返回结果
+}
+// 服务器列表信息
+message msg_server_list_rep
+{
+	repeated server_info server_list = 1;	// 服务器列表信息 
+}
+// 变更服务器信息
+message msg_change_server_info
+{
+	server_info info 	 = 1;		// 服务器信息
+}
+
+
+
+// ----------------------------------游戏服----------------------------------------------------
+// 游戏服务器上报大厅信息
+message msg_report_svr_info
+{
+	uint32 onlines = 1;		// 在线人数	
+	uint32 status  = 2;		// 服务器状态
+}
+// 返回大厅
+message msg_leave_svr
+{
+	uint32 uid 	 = 1;
+}
+// 通知网络状态
+message msg_notify_net_state
+{
+	uint32 uid   	  = 1;
+	uint32 state 	  = 2;	//(0断线，1连接)
+	uint32 newip 	  = 3;
+	uint32 no_player  = 4;	//没有玩家
+}
+// 进入游戏服务器
+message msg_enter_into_game_svr
+{
+	uint32				player_type		= 1;	// 玩家类型(机器人，玩家)
+	base_info  			base_data 		= 2;	// 基本信息
+	uint32				play_type		= 3;	// 玩法类型
+	
+}
+// 通知登录
+message msg_notify_player_lobby_login
+{
+	uint32 lobby_id		= 1;	// 大厅服务器ID
+	uint32 uid			= 2;	// 玩家ID
+}
+// 刷新数值
+message msg_flush_change_account_data
+{
+	uint32 	uid 			= 1;
+	int64	coin 			= 2;				// 金币			
+	int64	safe_coin		= 3;				// 保险箱
+	double 	lon				= 4;				// 经纬度
+	double 	lat				= 5;				// 经纬度
+	
+}
+// 游戏战报
+message msg_report_game_result
+{
+	uint32 			uid         = 1;
+	uint32 			game_type   = 2;
+	uint32				play_type   = 3;
+	int64				win_score   = 4;			
+}
+// 修改游戏数值
+message msg_notify_change_account_data
+{
+	uint32 uid 				= 1;
+	uint32 oper_type		= 2;				// 操作类型
+	uint32 sub_type			= 3;				// 操作子类
+	int64	coin 			= 4;				// 金币
+	int64	safe_coin		= 5;				// 保险箱
+	bytes  chessid			= 7;				// 游戏id
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

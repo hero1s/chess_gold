@@ -1,0 +1,129 @@
+syntax = "proto3";
+package net;
+
+
+// 玩家基本信息
+message base_info 
+{
+	uint32 	uid				= 1;				// 游戏ID
+	bytes	name 			= 2;				// 昵称	
+	uint32 	sex		    	= 3;				// 性别	
+	int64	coin 			= 5;				// 金币		
+	uint32 	vip 			= 7;				// vip经验值
+	uint32 	clogin			= 9;				// 连续登陆天数
+	uint32 	weeklogin		= 10;				// 本周累计登陆天数
+	uint32 	login_ip		= 14;				// 登陆IP
+	uint32 	all_login_days  = 15;				// 累计登陆天数
+	uint32 	offline_time    = 16;				// 下线时间
+	double 	lon				= 17;				// 经纬度
+	double 	lat				= 18;				// 经纬度
+}
+//服务器信息
+message svr_info
+{
+	uint32 svrid  	   	 			= 1;		// 服务器ID
+	uint32 svr_type     			= 2;		// 服务器类型
+	uint32 game_type  	 			= 3;		// 游戏类型
+	repeated uint32 play_types 	 	= 4;		// 游戏玩法类型
+	uint32 status		 			= 5;		// 服务器状态
+}
+// 游戏房间信息
+message room_info
+{
+	uint32 id 				= 1; // 房间ID
+	uint32 game_type		= 2; // 游戏类型
+	uint32 play_type		= 3; // 玩法类型
+	uint64 enter_min		= 4; // 进入门槛
+	uint64 enter_max		= 5; // 进入限制
+	uint32 player_num		= 6; // 房间人数
+	uint32 basescore		= 7; // 底分			
+}
+// 玩家信息
+message seat_info
+{
+	uint32 uid				= 1;				// 游戏ID
+	int64	coin 			= 2;				// 金币				
+	uint32 chairid			= 3;				// 椅子位子	
+	uint32 login_ip			= 4;				// 登陆IP
+	uint32 net_state		= 5;				// 网络状态
+	double lon				= 6;				// 经纬度
+	double lat				= 7;				// 经纬度
+	
+}
+// 玩家数值信息
+message seat_value_info
+{
+	uint32 uid				= 1;				// 游戏ID	
+	int64	coin 			= 2;				// 金币				
+	uint32 chairid			= 3;				// 椅子位子			
+}
+
+message seat_face
+{
+	uint32 uid				= 1;				// 游戏ID
+	uint32 ready			= 2;				// 准备状态
+	uint32 chairid			= 3;				// 桌位ID
+}
+// 旁观者信息
+message looker_info
+{
+	uint32 uid				= 1;				// 游戏ID	
+	int64  coin				= 2;				// 金币
+		
+}
+
+// 桌子信息
+message table_info
+{
+	int64  tableid 			= 1;  // 桌子ID
+	int64  basescore		= 2;  // 底分
+	int64  enter_min		= 3;  // 最小进入
+	int64  enter_max		= 4;  // 最大进入	
+	uint32 feetype			= 5;  // 台费类型
+	int64  feevalue			= 6;  // 台费比值
+	uint32 table_state		= 7;  // 桌子状态
+	uint32 seat_num			= 8;  // 座位数	
+	uint32 game_type       	= 9;  // 游戏类型
+	uint32 play_type		= 10; // 玩法
+	bytes  add_param		= 11; // 附加参数
+	repeated seat_face seats		= 12; // 座位信息
+	
+	// 逻辑参数按需使用
+	uint32 show_hand_num   	= 13;//  显示牌数
+	uint32 call_time		= 14;//  叫分时间
+	uint32 card_time		= 15;//  出牌时间
+}
+
+//记录游戏消息
+message record_game_msg
+{
+	bytes     msg 			= 1; //消息内容
+	uint32    msg_type		= 2; //消息ID
+	uint32    uid 			= 3; //消息玩家ID(0表示群发)
+	uint32    send_time     = 4; //发送时间	
+}
+//游戏记录
+message game_record
+{
+	uint32             game_type    = 1; //游戏类型
+	uint32				play_type	 = 2; //游戏玩法
+	uint32	   			start_time   = 3; //小局开始时间   	 
+	repeated record_game_msg	msgs		 = 4; //游戏消息
+}
+
+// 任务数据
+message mission_data
+{
+	uint32 	msid 	= 1;// 任务id
+	uint32 	rtimes 	= 2;// 达成次数
+	uint32 	ctimes 	= 3;// 循环次数
+	uint32  cptime  = 4;// 领奖时间	
+}
+
+
+
+
+
+
+
+

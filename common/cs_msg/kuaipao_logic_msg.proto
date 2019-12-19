@@ -1,0 +1,130 @@
+syntax = "proto3";
+package net;
+
+//-------------跑得快游戏消息---------------------------------------
+
+enum CLIENT_MSG_KUAIPAO
+{
+	S2C_MSG_KUAIPAO_NULL					= 0;
+	S2C_MSG_KUAIPAO_GAME_INFO				= 3201;// 游戏信息
+	S2C_MSG_KUAIPAO_START					= 3202;// 游戏开始
+	
+	C2S_MSG_KUAIPAO_OUT_CARD_REQ			= 3208;// 玩家出牌
+	S2C_MSG_KUAIPAO_OUT_CARD				= 3209;// 玩家出牌
+	C2S_MSG_KUAIPAO_PASS_CARD_REQ			= 3210;// 放弃出牌
+	S2C_MSG_KUAIPAO_PASS_CARD				= 3211;// 放弃出牌
+	S2C_MSG_KUAIPAO_GAME_OVER				= 3212;// 游戏结束
+	S2C_MSG_KUAIPAO_BOMB_SCORE				= 3213;// 炸弹飘分
+	S2C_MSG_KUAIPAO_OPER_FAIL				= 3214;// 操作失败
+	C2S_MSG_KUAIPAO_PIAO_SCORE_REQ			= 3215;// 飘分
+	S2C_MSG_KUAIPAO_PIAO_SCORE_REP			= 3216;// 飘分通知
+	S2C_MSG_KUAIPAO_NOTIFY_PIAO_SCORE		= 3217;// 通知飘分
+
+}
+
+
+// 跑得快类型
+enum emKUAIPAO_TYPE
+{
+	KUAIPAO_TYPE_fifteen 	= 0;	// 跑得快15张
+	KUAIPAO_TYPE_sixteen 	= 1;	// 跑得快16张
+	
+}
+
+// 游戏信息
+message msg_kuaipao_game_info_rep
+{
+	uint32 banker_user 				= 1; // 庄家
+	uint32 cur_user					= 2; // 当前玩家
+	uint32 turn_winer				= 3; // 出牌玩家
+	repeated uint32 turn_card_data  = 4; // 出的牌
+	repeated uint32 hand_card_count = 5; // 手牌数(大家的手牌数)
+	repeated uint32 hand_card_data  = 6; // 手牌(自己的手牌)
+	uint32 game_state				= 7; //
+	uint32 wait_time				= 8; // 定时器剩余时间
+	repeated int64  bomb_scores		= 9; // 炸弹得分
+	uint32 oper_count				= 10;// 操作次数(出牌或pass)
+	repeated uint32 piao_scores		= 11;// 飘分数
+}
+// 游戏开始
+message msg_kuaipao_start_rep
+{
+	 uint32 start_user 					= 1;	// 开始玩家
+	 uint32 cur_user   					= 2; 	// 当前玩家	
+	repeated uint32 card_data 			= 3;	// 扑克列表	
+	
+}
+// 玩家出牌
+message msg_kuaipao_out_card_req
+{
+	repeated uint32 card_data 		= 1;	// 扑克数据		
+}
+// 玩家出牌
+message msg_kuaipao_out_card_rep
+{
+	uint32 cur_user 				= 1;	// 当前玩家
+	uint32 out_card_user 			= 2;	// 出牌玩家
+	repeated uint32 card_data 		= 3;	// 扑克列表
+	uint32 card_type				= 4;	// 出牌牌型
+	uint32 is_pass					= 5;	// 要不起
+}
+// 放弃出牌
+message msg_kuaipao_pass_card_req
+{
+	uint32 reason = 1;	
+}
+// 放弃出牌
+message msg_kuaipao_pass_card_rep
+{
+	uint32 turn_over		= 1;	// 一轮结束
+	uint32 cur_user			= 2;	// 当前玩家
+	uint32 pass_card_user 	= 3;	// 放弃玩家
+	uint32 is_pass			= 4;	// 要不起
+}
+// 炸弹得分
+message msg_kuaipao_bomb_score_rep
+{
+	uint32 bomb_user   			= 1;	// 炸弹玩家
+	repeated int64  bomb_scores	= 2;    // 炸弹得分 
+}
+
+// 游戏结束
+message msg_kuaipao_game_over_rep
+{
+	repeated int64 		scores				= 1;	// 游戏积分		 
+	repeated uint32		card_counts			= 2;	// 扑克数目
+	repeated uint32     hand_card_data		= 3;	// 扑克列表	
+	repeated int64		bomb_scores			= 5;	// 炸弹积分
+	repeated uint32		bomb_counts			= 6;	// 打出炸弹数
+	repeated uint32		guanmens			= 7;	// 关门翻倍
+	uint32     			hong10_user			= 9;	// 红桃10玩家
+
+}
+// 操作失败
+message msg_kuaipao_oper_fail_rep
+{
+	uint32  reason = 1;	// 失败原因
+	
+}
+// 飘分
+message msg_kuaipao_notify_piao_score
+{
+	uint32 piao_time = 1; // 飘分时间
+}
+message msg_kuaipao_piao_score_req
+{
+	uint32 score = 1; // 飘分数
+	
+}
+message msg_kuaipao_piao_score_rep
+{
+	uint32 user  = 1; // 飘分玩家
+	uint32 score = 2; // 飘分数
+	
+}
+
+//-----------------跑得快游戏消息-----------------------------------
+
+
+
+

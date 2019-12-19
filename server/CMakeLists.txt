@@ -1,0 +1,815 @@
+cmake_minimum_required(VERSION 3.14)
+project(server)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(server_frame/include)
+include_directories(server_frame/include/aoi)
+include_directories(server_frame/include/astar)
+include_directories(server_frame/include/config)
+include_directories(server_frame/include/crypt)
+include_directories(server_frame/include/dbmysql)
+include_directories(server_frame/include/ebus)
+include_directories(server_frame/include/file)
+include_directories(server_frame/include/framework)
+include_directories(server_frame/include/fundamental)
+include_directories(server_frame/include/helper)
+include_directories(server_frame/include/lua_service)
+include_directories(server_frame/include/math)
+include_directories(server_frame/include/memory)
+include_directories(server_frame/include/network)
+include_directories(server_frame/include/packet)
+include_directories(server_frame/include/redisclient)
+include_directories(server_frame/include/redisclient/impl)
+include_directories(server_frame/include/string)
+include_directories(server_frame/include/third)
+include_directories(server_frame/include/third/asio)
+include_directories(server_frame/include/third/asio/detail)
+include_directories(server_frame/include/third/asio/detail/impl)
+include_directories(server_frame/include/third/asio/experimental)
+include_directories(server_frame/include/third/asio/experimental/impl)
+include_directories(server_frame/include/third/asio/generic)
+include_directories(server_frame/include/third/asio/generic/detail)
+include_directories(server_frame/include/third/asio/generic/detail/impl)
+include_directories(server_frame/include/third/asio/impl)
+include_directories(server_frame/include/third/asio/ip)
+include_directories(server_frame/include/third/asio/ip/detail)
+include_directories(server_frame/include/third/asio/ip/detail/impl)
+include_directories(server_frame/include/third/asio/ip/impl)
+include_directories(server_frame/include/third/asio/local)
+include_directories(server_frame/include/third/asio/local/detail)
+include_directories(server_frame/include/third/asio/local/detail/impl)
+include_directories(server_frame/include/third/asio/posix)
+include_directories(server_frame/include/third/asio/ssl)
+include_directories(server_frame/include/third/asio/ssl/detail)
+include_directories(server_frame/include/third/asio/ssl/detail/impl)
+include_directories(server_frame/include/third/asio/ssl/impl)
+include_directories(server_frame/include/third/asio/ts)
+include_directories(server_frame/include/third/asio/windows)
+include_directories(server_frame/include/third/http)
+include_directories(server_frame/include/third/lua)
+include_directories(server_frame/include/third/nlohmann)
+include_directories(server_frame/include/third/snappy)
+include_directories(server_frame/include/third/sol)
+include_directories(server_frame/include/third/spdlog)
+include_directories(server_frame/include/third/spdlog/contrib)
+include_directories(server_frame/include/third/spdlog/contrib/sinks)
+include_directories(server_frame/include/third/spdlog/details)
+include_directories(server_frame/include/third/spdlog/fmt)
+include_directories(server_frame/include/third/spdlog/fmt/bundled)
+include_directories(server_frame/include/third/spdlog/sinks)
+include_directories(server_frame/include/third/timer)
+include_directories(server_frame/include/third/tinyxml)
+include_directories(server_frame/include/thread)
+include_directories(server_frame/include/time)
+include_directories(server_frame/include/utility)
+include_directories(servers/center_server/src)
+include_directories(servers/common/src)
+include_directories(servers/common/src/mysql_mgr)
+include_directories(servers/common/src/redis_mgr)
+include_directories(servers/common/src/server_connect)
+include_directories(servers/game_frame/src)
+include_directories(servers/game_frame/src/game_table)
+include_directories(servers/game_frame/src/lua_logic)
+include_directories(servers/game_frame/src/net)
+include_directories(servers/game_frame/src/robot)
+include_directories(servers/game_server/src)
+include_directories(servers/game_server/src/game_logic/kuaipao)
+include_directories(servers/game_server/src/game_logic/landlord)
+include_directories(servers/game_server/src/poker)
+include_directories(servers/lobby_server/src)
+include_directories(servers/lobby_server/src/client_msg)
+include_directories(servers/lobby_server/src/lua_logic)
+include_directories(servers/lobby_server/src/mission)
+include_directories(servers/lobby_server/src/net)
+include_directories(servers/pb/src)
+
+add_executable(server
+        server_frame/include/aoi/quad_tree.hpp
+        server_frame/include/aoi/rect.hpp
+        server_frame/include/aoi/scene.h
+        server_frame/include/aoi/vec2.hpp
+        server_frame/include/astar/astar.h
+        server_frame/include/astar/blockallocator.h
+        server_frame/include/config/config.h
+        server_frame/include/config/csvreader.h
+        server_frame/include/crypt/aes.h
+        server_frame/include/crypt/base64.hpp
+        server_frame/include/crypt/blowfish.h
+        server_frame/include/crypt/CRC.h
+        server_frame/include/crypt/mars.h
+        server_frame/include/crypt/md5.h
+        server_frame/include/crypt/net_encrypt.h
+        server_frame/include/crypt/serpent.h
+        server_frame/include/crypt/sha1.h
+        server_frame/include/crypt/url_encode.h
+        server_frame/include/crypt/xor256.h
+        server_frame/include/dbmysql/db_task.h
+        server_frame/include/dbmysql/db_wrap.h
+        server_frame/include/dbmysql/dbmysql.h
+        server_frame/include/dbmysql/sql_join.h
+        server_frame/include/ebus/event_bus.hpp
+        server_frame/include/ebus/frame_event.hpp
+        server_frame/include/file/directory.hpp
+        server_frame/include/file/file.hpp
+        server_frame/include/file/filehelper.h
+        server_frame/include/framework/application.h
+        server_frame/include/fundamental/common.h
+        server_frame/include/fundamental/cyclebuffer.h
+        server_frame/include/fundamental/cyclebuffer_shm.h
+        server_frame/include/fundamental/hashtable.h
+        server_frame/include/fundamental/hashval.h
+        server_frame/include/fundamental/linkcache.h
+        server_frame/include/fundamental/multiprocesshashtable.h
+        server_frame/include/fundamental/ring_buff.h
+        server_frame/include/fundamental/variablehashtable.h
+        server_frame/include/fundamental/variablelengthhashtable.h
+        server_frame/include/helper/bufferStream.h
+        server_frame/include/helper/fileStream.h
+        server_frame/include/helper/helper.h
+        server_frame/include/helper/streamBase.h
+        server_frame/include/helper/stringStream.h
+        server_frame/include/lua_service/lua_bind.h
+        server_frame/include/lua_service/lua_service.h
+        server_frame/include/math/box2.h
+        server_frame/include/math/math_functions.h
+        server_frame/include/math/point2.h
+        server_frame/include/math/point3.h
+        server_frame/include/math/random.hpp
+        server_frame/include/math/rank.h
+        server_frame/include/math/rect.h
+        server_frame/include/memory/ipcutility.h
+        server_frame/include/memory/object_pool.hpp
+        server_frame/include/memory/shm_cache_mgr.h
+        server_frame/include/network/byte_buffer.h
+        server_frame/include/network/message_head.h
+        server_frame/include/network/tcp_callbacks.h
+        server_frame/include/network/tcp_client.h
+        server_frame/include/network/tcp_conn.h
+        server_frame/include/network/tcp_server.h
+        server_frame/include/packet/inner_protobuf_pkg.h
+        server_frame/include/packet/protobuf_handle.h
+        server_frame/include/packet/protobuf_pkg.h
+        server_frame/include/redisclient/impl/pipeline.cpp
+        server_frame/include/redisclient/impl/redisasyncclient.cpp
+        server_frame/include/redisclient/impl/redisclientimpl.cpp
+        server_frame/include/redisclient/impl/redisclientimpl.h
+        server_frame/include/redisclient/impl/redisparser.cpp
+        server_frame/include/redisclient/impl/redissyncclient.cpp
+        server_frame/include/redisclient/impl/redisvalue.cpp
+        server_frame/include/redisclient/impl/throwerror.h
+        server_frame/include/redisclient/config.h
+        server_frame/include/redisclient/pipeline.h
+        server_frame/include/redisclient/redis_client_wrap.h
+        server_frame/include/redisclient/redisasyncclient.h
+        server_frame/include/redisclient/redisbuffer.h
+        server_frame/include/redisclient/redisparser.h
+        server_frame/include/redisclient/redissyncclient.h
+        server_frame/include/redisclient/redisvalue.h
+        server_frame/include/redisclient/version.h
+        server_frame/include/string/string.hpp
+        server_frame/include/string/string_functions.h
+        server_frame/include/string/stringutility.h
+        server_frame/include/third/asio/detail/impl/buffer_sequence_adapter.ipp
+        server_frame/include/third/asio/detail/impl/descriptor_ops.ipp
+        server_frame/include/third/asio/detail/impl/dev_poll_reactor.hpp
+        server_frame/include/third/asio/detail/impl/dev_poll_reactor.ipp
+        server_frame/include/third/asio/detail/impl/epoll_reactor.hpp
+        server_frame/include/third/asio/detail/impl/epoll_reactor.ipp
+        server_frame/include/third/asio/detail/impl/eventfd_select_interrupter.ipp
+        server_frame/include/third/asio/detail/impl/handler_tracking.ipp
+        server_frame/include/third/asio/detail/impl/kqueue_reactor.hpp
+        server_frame/include/third/asio/detail/impl/kqueue_reactor.ipp
+        server_frame/include/third/asio/detail/impl/null_event.ipp
+        server_frame/include/third/asio/detail/impl/pipe_select_interrupter.ipp
+        server_frame/include/third/asio/detail/impl/posix_event.ipp
+        server_frame/include/third/asio/detail/impl/posix_mutex.ipp
+        server_frame/include/third/asio/detail/impl/posix_thread.ipp
+        server_frame/include/third/asio/detail/impl/posix_tss_ptr.ipp
+        server_frame/include/third/asio/detail/impl/reactive_descriptor_service.ipp
+        server_frame/include/third/asio/detail/impl/reactive_serial_port_service.ipp
+        server_frame/include/third/asio/detail/impl/reactive_socket_service_base.ipp
+        server_frame/include/third/asio/detail/impl/resolver_service_base.ipp
+        server_frame/include/third/asio/detail/impl/scheduler.ipp
+        server_frame/include/third/asio/detail/impl/select_reactor.hpp
+        server_frame/include/third/asio/detail/impl/select_reactor.ipp
+        server_frame/include/third/asio/detail/impl/service_registry.hpp
+        server_frame/include/third/asio/detail/impl/service_registry.ipp
+        server_frame/include/third/asio/detail/impl/signal_set_service.ipp
+        server_frame/include/third/asio/detail/impl/socket_ops.ipp
+        server_frame/include/third/asio/detail/impl/socket_select_interrupter.ipp
+        server_frame/include/third/asio/detail/impl/strand_executor_service.hpp
+        server_frame/include/third/asio/detail/impl/strand_executor_service.ipp
+        server_frame/include/third/asio/detail/impl/strand_service.hpp
+        server_frame/include/third/asio/detail/impl/strand_service.ipp
+        server_frame/include/third/asio/detail/impl/throw_error.ipp
+        server_frame/include/third/asio/detail/impl/timer_queue_ptime.ipp
+        server_frame/include/third/asio/detail/impl/timer_queue_set.ipp
+        server_frame/include/third/asio/detail/impl/win_event.ipp
+        server_frame/include/third/asio/detail/impl/win_iocp_handle_service.ipp
+        server_frame/include/third/asio/detail/impl/win_iocp_io_context.hpp
+        server_frame/include/third/asio/detail/impl/win_iocp_io_context.ipp
+        server_frame/include/third/asio/detail/impl/win_iocp_serial_port_service.ipp
+        server_frame/include/third/asio/detail/impl/win_iocp_socket_service_base.ipp
+        server_frame/include/third/asio/detail/impl/win_mutex.ipp
+        server_frame/include/third/asio/detail/impl/win_object_handle_service.ipp
+        server_frame/include/third/asio/detail/impl/win_static_mutex.ipp
+        server_frame/include/third/asio/detail/impl/win_thread.ipp
+        server_frame/include/third/asio/detail/impl/win_tss_ptr.ipp
+        server_frame/include/third/asio/detail/impl/winrt_ssocket_service_base.ipp
+        server_frame/include/third/asio/detail/impl/winrt_timer_scheduler.hpp
+        server_frame/include/third/asio/detail/impl/winrt_timer_scheduler.ipp
+        server_frame/include/third/asio/detail/impl/winsock_init.ipp
+        server_frame/include/third/asio/detail/array.hpp
+        server_frame/include/third/asio/detail/array_fwd.hpp
+        server_frame/include/third/asio/detail/assert.hpp
+        server_frame/include/third/asio/detail/atomic_count.hpp
+        server_frame/include/third/asio/detail/base_from_completion_cond.hpp
+        server_frame/include/third/asio/detail/bind_handler.hpp
+        server_frame/include/third/asio/detail/buffer_resize_guard.hpp
+        server_frame/include/third/asio/detail/buffer_sequence_adapter.hpp
+        server_frame/include/third/asio/detail/buffered_stream_storage.hpp
+        server_frame/include/third/asio/detail/call_stack.hpp
+        server_frame/include/third/asio/detail/chrono.hpp
+        server_frame/include/third/asio/detail/chrono_time_traits.hpp
+        server_frame/include/third/asio/detail/completion_handler.hpp
+        server_frame/include/third/asio/detail/concurrency_hint.hpp
+        server_frame/include/third/asio/detail/conditionally_enabled_event.hpp
+        server_frame/include/third/asio/detail/conditionally_enabled_mutex.hpp
+        server_frame/include/third/asio/detail/config.hpp
+        server_frame/include/third/asio/detail/consuming_buffers.hpp
+        server_frame/include/third/asio/detail/cstddef.hpp
+        server_frame/include/third/asio/detail/cstdint.hpp
+        server_frame/include/third/asio/detail/date_time_fwd.hpp
+        server_frame/include/third/asio/detail/deadline_timer_service.hpp
+        server_frame/include/third/asio/detail/dependent_type.hpp
+        server_frame/include/third/asio/detail/descriptor_ops.hpp
+        server_frame/include/third/asio/detail/descriptor_read_op.hpp
+        server_frame/include/third/asio/detail/descriptor_write_op.hpp
+        server_frame/include/third/asio/detail/dev_poll_reactor.hpp
+        server_frame/include/third/asio/detail/epoll_reactor.hpp
+        server_frame/include/third/asio/detail/event.hpp
+        server_frame/include/third/asio/detail/eventfd_select_interrupter.hpp
+        server_frame/include/third/asio/detail/executor_op.hpp
+        server_frame/include/third/asio/detail/fd_set_adapter.hpp
+        server_frame/include/third/asio/detail/fenced_block.hpp
+        server_frame/include/third/asio/detail/functional.hpp
+        server_frame/include/third/asio/detail/gcc_arm_fenced_block.hpp
+        server_frame/include/third/asio/detail/gcc_hppa_fenced_block.hpp
+        server_frame/include/third/asio/detail/gcc_sync_fenced_block.hpp
+        server_frame/include/third/asio/detail/gcc_x86_fenced_block.hpp
+        server_frame/include/third/asio/detail/global.hpp
+        server_frame/include/third/asio/detail/handler_alloc_helpers.hpp
+        server_frame/include/third/asio/detail/handler_cont_helpers.hpp
+        server_frame/include/third/asio/detail/handler_invoke_helpers.hpp
+        server_frame/include/third/asio/detail/handler_tracking.hpp
+        server_frame/include/third/asio/detail/handler_type_requirements.hpp
+        server_frame/include/third/asio/detail/handler_work.hpp
+        server_frame/include/third/asio/detail/hash_map.hpp
+        server_frame/include/third/asio/detail/io_control.hpp
+        server_frame/include/third/asio/detail/is_buffer_sequence.hpp
+        server_frame/include/third/asio/detail/is_executor.hpp
+        server_frame/include/third/asio/detail/keyword_tss_ptr.hpp
+        server_frame/include/third/asio/detail/kqueue_reactor.hpp
+        server_frame/include/third/asio/detail/limits.hpp
+        server_frame/include/third/asio/detail/local_free_on_block_exit.hpp
+        server_frame/include/third/asio/detail/macos_fenced_block.hpp
+        server_frame/include/third/asio/detail/memory.hpp
+        server_frame/include/third/asio/detail/mutex.hpp
+        server_frame/include/third/asio/detail/noncopyable.hpp
+        server_frame/include/third/asio/detail/null_event.hpp
+        server_frame/include/third/asio/detail/null_fenced_block.hpp
+        server_frame/include/third/asio/detail/null_global.hpp
+        server_frame/include/third/asio/detail/null_mutex.hpp
+        server_frame/include/third/asio/detail/null_reactor.hpp
+        server_frame/include/third/asio/detail/null_signal_blocker.hpp
+        server_frame/include/third/asio/detail/null_socket_service.hpp
+        server_frame/include/third/asio/detail/null_static_mutex.hpp
+        server_frame/include/third/asio/detail/null_thread.hpp
+        server_frame/include/third/asio/detail/null_tss_ptr.hpp
+        server_frame/include/third/asio/detail/object_pool.hpp
+        server_frame/include/third/asio/detail/old_win_sdk_compat.hpp
+        server_frame/include/third/asio/detail/op_queue.hpp
+        server_frame/include/third/asio/detail/operation.hpp
+        server_frame/include/third/asio/detail/pipe_select_interrupter.hpp
+        server_frame/include/third/asio/detail/pop_options.hpp
+        server_frame/include/third/asio/detail/posix_event.hpp
+        server_frame/include/third/asio/detail/posix_fd_set_adapter.hpp
+        server_frame/include/third/asio/detail/posix_global.hpp
+        server_frame/include/third/asio/detail/posix_mutex.hpp
+        server_frame/include/third/asio/detail/posix_signal_blocker.hpp
+        server_frame/include/third/asio/detail/posix_static_mutex.hpp
+        server_frame/include/third/asio/detail/posix_thread.hpp
+        server_frame/include/third/asio/detail/posix_tss_ptr.hpp
+        server_frame/include/third/asio/detail/push_options.hpp
+        server_frame/include/third/asio/detail/reactive_descriptor_service.hpp
+        server_frame/include/third/asio/detail/reactive_null_buffers_op.hpp
+        server_frame/include/third/asio/detail/reactive_serial_port_service.hpp
+        server_frame/include/third/asio/detail/reactive_socket_accept_op.hpp
+        server_frame/include/third/asio/detail/reactive_socket_connect_op.hpp
+        server_frame/include/third/asio/detail/reactive_socket_recv_op.hpp
+        server_frame/include/third/asio/detail/reactive_socket_recvfrom_op.hpp
+        server_frame/include/third/asio/detail/reactive_socket_recvmsg_op.hpp
+        server_frame/include/third/asio/detail/reactive_socket_send_op.hpp
+        server_frame/include/third/asio/detail/reactive_socket_sendto_op.hpp
+        server_frame/include/third/asio/detail/reactive_socket_service.hpp
+        server_frame/include/third/asio/detail/reactive_socket_service_base.hpp
+        server_frame/include/third/asio/detail/reactive_wait_op.hpp
+        server_frame/include/third/asio/detail/reactor.hpp
+        server_frame/include/third/asio/detail/reactor_fwd.hpp
+        server_frame/include/third/asio/detail/reactor_op.hpp
+        server_frame/include/third/asio/detail/reactor_op_queue.hpp
+        server_frame/include/third/asio/detail/recycling_allocator.hpp
+        server_frame/include/third/asio/detail/regex_fwd.hpp
+        server_frame/include/third/asio/detail/resolve_endpoint_op.hpp
+        server_frame/include/third/asio/detail/resolve_op.hpp
+        server_frame/include/third/asio/detail/resolve_query_op.hpp
+        server_frame/include/third/asio/detail/resolver_service.hpp
+        server_frame/include/third/asio/detail/resolver_service_base.hpp
+        server_frame/include/third/asio/detail/scheduler.hpp
+        server_frame/include/third/asio/detail/scheduler_operation.hpp
+        server_frame/include/third/asio/detail/scheduler_thread_info.hpp
+        server_frame/include/third/asio/detail/scoped_lock.hpp
+        server_frame/include/third/asio/detail/scoped_ptr.hpp
+        server_frame/include/third/asio/detail/select_interrupter.hpp
+        server_frame/include/third/asio/detail/select_reactor.hpp
+        server_frame/include/third/asio/detail/service_registry.hpp
+        server_frame/include/third/asio/detail/signal_blocker.hpp
+        server_frame/include/third/asio/detail/signal_handler.hpp
+        server_frame/include/third/asio/detail/signal_init.hpp
+        server_frame/include/third/asio/detail/signal_op.hpp
+        server_frame/include/third/asio/detail/signal_set_service.hpp
+        server_frame/include/third/asio/detail/socket_holder.hpp
+        server_frame/include/third/asio/detail/socket_ops.hpp
+        server_frame/include/third/asio/detail/socket_option.hpp
+        server_frame/include/third/asio/detail/socket_select_interrupter.hpp
+        server_frame/include/third/asio/detail/socket_types.hpp
+        server_frame/include/third/asio/detail/solaris_fenced_block.hpp
+        server_frame/include/third/asio/detail/static_mutex.hpp
+        server_frame/include/third/asio/detail/std_event.hpp
+        server_frame/include/third/asio/detail/std_fenced_block.hpp
+        server_frame/include/third/asio/detail/std_global.hpp
+        server_frame/include/third/asio/detail/std_mutex.hpp
+        server_frame/include/third/asio/detail/std_static_mutex.hpp
+        server_frame/include/third/asio/detail/std_thread.hpp
+        server_frame/include/third/asio/detail/strand_executor_service.hpp
+        server_frame/include/third/asio/detail/strand_service.hpp
+        server_frame/include/third/asio/detail/string_view.hpp
+        server_frame/include/third/asio/detail/thread.hpp
+        server_frame/include/third/asio/detail/thread_context.hpp
+        server_frame/include/third/asio/detail/thread_group.hpp
+        server_frame/include/third/asio/detail/thread_info_base.hpp
+        server_frame/include/third/asio/detail/throw_error.hpp
+        server_frame/include/third/asio/detail/throw_exception.hpp
+        server_frame/include/third/asio/detail/timer_queue.hpp
+        server_frame/include/third/asio/detail/timer_queue_base.hpp
+        server_frame/include/third/asio/detail/timer_queue_ptime.hpp
+        server_frame/include/third/asio/detail/timer_queue_set.hpp
+        server_frame/include/third/asio/detail/timer_scheduler.hpp
+        server_frame/include/third/asio/detail/timer_scheduler_fwd.hpp
+        server_frame/include/third/asio/detail/tss_ptr.hpp
+        server_frame/include/third/asio/detail/type_traits.hpp
+        server_frame/include/third/asio/detail/variadic_templates.hpp
+        server_frame/include/third/asio/detail/wait_handler.hpp
+        server_frame/include/third/asio/detail/wait_op.hpp
+        server_frame/include/third/asio/detail/win_event.hpp
+        server_frame/include/third/asio/detail/win_fd_set_adapter.hpp
+        server_frame/include/third/asio/detail/win_fenced_block.hpp
+        server_frame/include/third/asio/detail/win_global.hpp
+        server_frame/include/third/asio/detail/win_iocp_handle_read_op.hpp
+        server_frame/include/third/asio/detail/win_iocp_handle_service.hpp
+        server_frame/include/third/asio/detail/win_iocp_handle_write_op.hpp
+        server_frame/include/third/asio/detail/win_iocp_io_context.hpp
+        server_frame/include/third/asio/detail/win_iocp_null_buffers_op.hpp
+        server_frame/include/third/asio/detail/win_iocp_operation.hpp
+        server_frame/include/third/asio/detail/win_iocp_overlapped_op.hpp
+        server_frame/include/third/asio/detail/win_iocp_overlapped_ptr.hpp
+        server_frame/include/third/asio/detail/win_iocp_serial_port_service.hpp
+        server_frame/include/third/asio/detail/win_iocp_socket_accept_op.hpp
+        server_frame/include/third/asio/detail/win_iocp_socket_connect_op.hpp
+        server_frame/include/third/asio/detail/win_iocp_socket_recv_op.hpp
+        server_frame/include/third/asio/detail/win_iocp_socket_recvfrom_op.hpp
+        server_frame/include/third/asio/detail/win_iocp_socket_recvmsg_op.hpp
+        server_frame/include/third/asio/detail/win_iocp_socket_send_op.hpp
+        server_frame/include/third/asio/detail/win_iocp_socket_service.hpp
+        server_frame/include/third/asio/detail/win_iocp_socket_service_base.hpp
+        server_frame/include/third/asio/detail/win_iocp_thread_info.hpp
+        server_frame/include/third/asio/detail/win_iocp_wait_op.hpp
+        server_frame/include/third/asio/detail/win_mutex.hpp
+        server_frame/include/third/asio/detail/win_object_handle_service.hpp
+        server_frame/include/third/asio/detail/win_static_mutex.hpp
+        server_frame/include/third/asio/detail/win_thread.hpp
+        server_frame/include/third/asio/detail/win_tss_ptr.hpp
+        server_frame/include/third/asio/detail/winapp_thread.hpp
+        server_frame/include/third/asio/detail/wince_thread.hpp
+        server_frame/include/third/asio/detail/winrt_async_manager.hpp
+        server_frame/include/third/asio/detail/winrt_async_op.hpp
+        server_frame/include/third/asio/detail/winrt_resolve_op.hpp
+        server_frame/include/third/asio/detail/winrt_resolver_service.hpp
+        server_frame/include/third/asio/detail/winrt_socket_connect_op.hpp
+        server_frame/include/third/asio/detail/winrt_socket_recv_op.hpp
+        server_frame/include/third/asio/detail/winrt_socket_send_op.hpp
+        server_frame/include/third/asio/detail/winrt_ssocket_service.hpp
+        server_frame/include/third/asio/detail/winrt_ssocket_service_base.hpp
+        server_frame/include/third/asio/detail/winrt_timer_scheduler.hpp
+        server_frame/include/third/asio/detail/winrt_utils.hpp
+        server_frame/include/third/asio/detail/winsock_init.hpp
+        server_frame/include/third/asio/detail/work_dispatcher.hpp
+        server_frame/include/third/asio/detail/wrapped_handler.hpp
+        server_frame/include/third/asio/experimental/impl/co_spawn.hpp
+        server_frame/include/third/asio/experimental/impl/detached.hpp
+        server_frame/include/third/asio/experimental/impl/redirect_error.hpp
+        server_frame/include/third/asio/experimental/co_spawn.hpp
+        server_frame/include/third/asio/experimental/detached.hpp
+        server_frame/include/third/asio/experimental/redirect_error.hpp
+        server_frame/include/third/asio/generic/detail/impl/endpoint.ipp
+        server_frame/include/third/asio/generic/detail/endpoint.hpp
+        server_frame/include/third/asio/generic/basic_endpoint.hpp
+        server_frame/include/third/asio/generic/datagram_protocol.hpp
+        server_frame/include/third/asio/generic/raw_protocol.hpp
+        server_frame/include/third/asio/generic/seq_packet_protocol.hpp
+        server_frame/include/third/asio/generic/stream_protocol.hpp
+        server_frame/include/third/asio/impl/buffered_read_stream.hpp
+        server_frame/include/third/asio/impl/buffered_write_stream.hpp
+        server_frame/include/third/asio/impl/connect.hpp
+        server_frame/include/third/asio/impl/defer.hpp
+        server_frame/include/third/asio/impl/dispatch.hpp
+        server_frame/include/third/asio/impl/error.ipp
+        server_frame/include/third/asio/impl/error_code.ipp
+        server_frame/include/third/asio/impl/execution_context.hpp
+        server_frame/include/third/asio/impl/execution_context.ipp
+        server_frame/include/third/asio/impl/executor.hpp
+        server_frame/include/third/asio/impl/executor.ipp
+        server_frame/include/third/asio/impl/handler_alloc_hook.ipp
+        server_frame/include/third/asio/impl/io_context.hpp
+        server_frame/include/third/asio/impl/io_context.ipp
+        server_frame/include/third/asio/impl/post.hpp
+        server_frame/include/third/asio/impl/read.hpp
+        server_frame/include/third/asio/impl/read_at.hpp
+        server_frame/include/third/asio/impl/read_until.hpp
+        server_frame/include/third/asio/impl/serial_port_base.hpp
+        server_frame/include/third/asio/impl/serial_port_base.ipp
+        server_frame/include/third/asio/impl/spawn.hpp
+        server_frame/include/third/asio/impl/src.cpp
+        server_frame/include/third/asio/impl/src.hpp
+        server_frame/include/third/asio/impl/system_context.hpp
+        server_frame/include/third/asio/impl/system_context.ipp
+        server_frame/include/third/asio/impl/system_executor.hpp
+        server_frame/include/third/asio/impl/thread_pool.hpp
+        server_frame/include/third/asio/impl/thread_pool.ipp
+        server_frame/include/third/asio/impl/use_future.hpp
+        server_frame/include/third/asio/impl/write.hpp
+        server_frame/include/third/asio/impl/write_at.hpp
+        server_frame/include/third/asio/ip/detail/impl/endpoint.ipp
+        server_frame/include/third/asio/ip/detail/endpoint.hpp
+        server_frame/include/third/asio/ip/detail/socket_option.hpp
+        server_frame/include/third/asio/ip/impl/address.hpp
+        server_frame/include/third/asio/ip/impl/address.ipp
+        server_frame/include/third/asio/ip/impl/address_v4.hpp
+        server_frame/include/third/asio/ip/impl/address_v4.ipp
+        server_frame/include/third/asio/ip/impl/address_v6.hpp
+        server_frame/include/third/asio/ip/impl/address_v6.ipp
+        server_frame/include/third/asio/ip/impl/basic_endpoint.hpp
+        server_frame/include/third/asio/ip/impl/host_name.ipp
+        server_frame/include/third/asio/ip/impl/network_v4.hpp
+        server_frame/include/third/asio/ip/impl/network_v4.ipp
+        server_frame/include/third/asio/ip/impl/network_v6.hpp
+        server_frame/include/third/asio/ip/impl/network_v6.ipp
+        server_frame/include/third/asio/ip/address.hpp
+        server_frame/include/third/asio/ip/address_v4.hpp
+        server_frame/include/third/asio/ip/address_v4_iterator.hpp
+        server_frame/include/third/asio/ip/address_v4_range.hpp
+        server_frame/include/third/asio/ip/address_v6.hpp
+        server_frame/include/third/asio/ip/address_v6_iterator.hpp
+        server_frame/include/third/asio/ip/address_v6_range.hpp
+        server_frame/include/third/asio/ip/bad_address_cast.hpp
+        server_frame/include/third/asio/ip/basic_endpoint.hpp
+        server_frame/include/third/asio/ip/basic_resolver.hpp
+        server_frame/include/third/asio/ip/basic_resolver_entry.hpp
+        server_frame/include/third/asio/ip/basic_resolver_iterator.hpp
+        server_frame/include/third/asio/ip/basic_resolver_query.hpp
+        server_frame/include/third/asio/ip/basic_resolver_results.hpp
+        server_frame/include/third/asio/ip/host_name.hpp
+        server_frame/include/third/asio/ip/icmp.hpp
+        server_frame/include/third/asio/ip/multicast.hpp
+        server_frame/include/third/asio/ip/network_v4.hpp
+        server_frame/include/third/asio/ip/network_v6.hpp
+        server_frame/include/third/asio/ip/resolver_base.hpp
+        server_frame/include/third/asio/ip/resolver_query_base.hpp
+        server_frame/include/third/asio/ip/resolver_service.hpp
+        server_frame/include/third/asio/ip/tcp.hpp
+        server_frame/include/third/asio/ip/udp.hpp
+        server_frame/include/third/asio/ip/unicast.hpp
+        server_frame/include/third/asio/ip/v6_only.hpp
+        server_frame/include/third/asio/local/detail/impl/endpoint.ipp
+        server_frame/include/third/asio/local/detail/endpoint.hpp
+        server_frame/include/third/asio/local/basic_endpoint.hpp
+        server_frame/include/third/asio/local/connect_pair.hpp
+        server_frame/include/third/asio/local/datagram_protocol.hpp
+        server_frame/include/third/asio/local/stream_protocol.hpp
+        server_frame/include/third/asio/posix/basic_descriptor.hpp
+        server_frame/include/third/asio/posix/basic_stream_descriptor.hpp
+        server_frame/include/third/asio/posix/descriptor.hpp
+        server_frame/include/third/asio/posix/descriptor_base.hpp
+        server_frame/include/third/asio/posix/stream_descriptor.hpp
+        server_frame/include/third/asio/posix/stream_descriptor_service.hpp
+        server_frame/include/third/asio/ssl/detail/impl/engine.ipp
+        server_frame/include/third/asio/ssl/detail/impl/openssl_init.ipp
+        server_frame/include/third/asio/ssl/detail/buffered_handshake_op.hpp
+        server_frame/include/third/asio/ssl/detail/engine.hpp
+        server_frame/include/third/asio/ssl/detail/handshake_op.hpp
+        server_frame/include/third/asio/ssl/detail/io.hpp
+        server_frame/include/third/asio/ssl/detail/openssl_init.hpp
+        server_frame/include/third/asio/ssl/detail/openssl_types.hpp
+        server_frame/include/third/asio/ssl/detail/password_callback.hpp
+        server_frame/include/third/asio/ssl/detail/read_op.hpp
+        server_frame/include/third/asio/ssl/detail/shutdown_op.hpp
+        server_frame/include/third/asio/ssl/detail/stream_core.hpp
+        server_frame/include/third/asio/ssl/detail/verify_callback.hpp
+        server_frame/include/third/asio/ssl/detail/write_op.hpp
+        server_frame/include/third/asio/ssl/impl/context.hpp
+        server_frame/include/third/asio/ssl/impl/context.ipp
+        server_frame/include/third/asio/ssl/impl/error.ipp
+        server_frame/include/third/asio/ssl/impl/rfc2818_verification.ipp
+        server_frame/include/third/asio/ssl/impl/src.hpp
+        server_frame/include/third/asio/ssl/context.hpp
+        server_frame/include/third/asio/ssl/context_base.hpp
+        server_frame/include/third/asio/ssl/error.hpp
+        server_frame/include/third/asio/ssl/rfc2818_verification.hpp
+        server_frame/include/third/asio/ssl/stream.hpp
+        server_frame/include/third/asio/ssl/stream_base.hpp
+        server_frame/include/third/asio/ssl/verify_context.hpp
+        server_frame/include/third/asio/ssl/verify_mode.hpp
+        server_frame/include/third/asio/ts/buffer.hpp
+        server_frame/include/third/asio/ts/executor.hpp
+        server_frame/include/third/asio/ts/internet.hpp
+        server_frame/include/third/asio/ts/io_context.hpp
+        server_frame/include/third/asio/ts/net.hpp
+        server_frame/include/third/asio/ts/netfwd.hpp
+        server_frame/include/third/asio/ts/socket.hpp
+        server_frame/include/third/asio/ts/timer.hpp
+        server_frame/include/third/asio/windows/basic_handle.hpp
+        server_frame/include/third/asio/windows/basic_object_handle.hpp
+        server_frame/include/third/asio/windows/basic_random_access_handle.hpp
+        server_frame/include/third/asio/windows/basic_stream_handle.hpp
+        server_frame/include/third/asio/windows/object_handle.hpp
+        server_frame/include/third/asio/windows/object_handle_service.hpp
+        server_frame/include/third/asio/windows/overlapped_handle.hpp
+        server_frame/include/third/asio/windows/overlapped_ptr.hpp
+        server_frame/include/third/asio/windows/random_access_handle.hpp
+        server_frame/include/third/asio/windows/random_access_handle_service.hpp
+        server_frame/include/third/asio/windows/stream_handle.hpp
+        server_frame/include/third/asio/windows/stream_handle_service.hpp
+        server_frame/include/third/asio/associated_allocator.hpp
+        server_frame/include/third/asio/associated_executor.hpp
+        server_frame/include/third/asio/async_result.hpp
+        server_frame/include/third/asio/basic_datagram_socket.hpp
+        server_frame/include/third/asio/basic_deadline_timer.hpp
+        server_frame/include/third/asio/basic_io_object.hpp
+        server_frame/include/third/asio/basic_raw_socket.hpp
+        server_frame/include/third/asio/basic_seq_packet_socket.hpp
+        server_frame/include/third/asio/basic_serial_port.hpp
+        server_frame/include/third/asio/basic_signal_set.hpp
+        server_frame/include/third/asio/basic_socket.hpp
+        server_frame/include/third/asio/basic_socket_acceptor.hpp
+        server_frame/include/third/asio/basic_socket_iostream.hpp
+        server_frame/include/third/asio/basic_socket_streambuf.hpp
+        server_frame/include/third/asio/basic_stream_socket.hpp
+        server_frame/include/third/asio/basic_streambuf.hpp
+        server_frame/include/third/asio/basic_streambuf_fwd.hpp
+        server_frame/include/third/asio/basic_waitable_timer.hpp
+        server_frame/include/third/asio/bind_executor.hpp
+        server_frame/include/third/asio/buffer.hpp
+        server_frame/include/third/asio/buffered_read_stream.hpp
+        server_frame/include/third/asio/buffered_read_stream_fwd.hpp
+        server_frame/include/third/asio/buffered_stream.hpp
+        server_frame/include/third/asio/buffered_stream_fwd.hpp
+        server_frame/include/third/asio/buffered_write_stream.hpp
+        server_frame/include/third/asio/buffered_write_stream_fwd.hpp
+        server_frame/include/third/asio/buffers_iterator.hpp
+        server_frame/include/third/asio/completion_condition.hpp
+        server_frame/include/third/asio/connect.hpp
+        server_frame/include/third/asio/coroutine.hpp
+        server_frame/include/third/asio/datagram_socket_service.hpp
+        server_frame/include/third/asio/deadline_timer.hpp
+        server_frame/include/third/asio/deadline_timer_service.hpp
+        server_frame/include/third/asio/defer.hpp
+        server_frame/include/third/asio/dispatch.hpp
+        server_frame/include/third/asio/error.hpp
+        server_frame/include/third/asio/error_code.hpp
+        server_frame/include/third/asio/execution_context.hpp
+        server_frame/include/third/asio/executor.hpp
+        server_frame/include/third/asio/executor_work_guard.hpp
+        server_frame/include/third/asio/experimental.hpp
+        server_frame/include/third/asio/handler_alloc_hook.hpp
+        server_frame/include/third/asio/handler_continuation_hook.hpp
+        server_frame/include/third/asio/handler_invoke_hook.hpp
+        server_frame/include/third/asio/handler_type.hpp
+        server_frame/include/third/asio/high_resolution_timer.hpp
+        server_frame/include/third/asio/io_context.hpp
+        server_frame/include/third/asio/io_context_strand.hpp
+        server_frame/include/third/asio/io_service.hpp
+        server_frame/include/third/asio/io_service_strand.hpp
+        server_frame/include/third/asio/is_executor.hpp
+        server_frame/include/third/asio/is_read_buffered.hpp
+        server_frame/include/third/asio/is_write_buffered.hpp
+        server_frame/include/third/asio/packaged_task.hpp
+        server_frame/include/third/asio/placeholders.hpp
+        server_frame/include/third/asio/post.hpp
+        server_frame/include/third/asio/raw_socket_service.hpp
+        server_frame/include/third/asio/read.hpp
+        server_frame/include/third/asio/read_at.hpp
+        server_frame/include/third/asio/read_until.hpp
+        server_frame/include/third/asio/seq_packet_socket_service.hpp
+        server_frame/include/third/asio/serial_port.hpp
+        server_frame/include/third/asio/serial_port_base.hpp
+        server_frame/include/third/asio/serial_port_service.hpp
+        server_frame/include/third/asio/signal_set.hpp
+        server_frame/include/third/asio/signal_set_service.hpp
+        server_frame/include/third/asio/socket_acceptor_service.hpp
+        server_frame/include/third/asio/socket_base.hpp
+        server_frame/include/third/asio/spawn.hpp
+        server_frame/include/third/asio/ssl.hpp
+        server_frame/include/third/asio/steady_timer.hpp
+        server_frame/include/third/asio/strand.hpp
+        server_frame/include/third/asio/stream_socket_service.hpp
+        server_frame/include/third/asio/streambuf.hpp
+        server_frame/include/third/asio/system_context.hpp
+        server_frame/include/third/asio/system_error.hpp
+        server_frame/include/third/asio/system_executor.hpp
+        server_frame/include/third/asio/system_timer.hpp
+        server_frame/include/third/asio/thread.hpp
+        server_frame/include/third/asio/thread_pool.hpp
+        server_frame/include/third/asio/time_traits.hpp
+        server_frame/include/third/asio/unyield.hpp
+        server_frame/include/third/asio/use_future.hpp
+        server_frame/include/third/asio/uses_executor.hpp
+        server_frame/include/third/asio/version.hpp
+        server_frame/include/third/asio/wait_traits.hpp
+        server_frame/include/third/asio/waitable_timer_service.hpp
+        server_frame/include/third/asio/write.hpp
+        server_frame/include/third/asio/write_at.hpp
+        server_frame/include/third/asio/yield.hpp
+        server_frame/include/third/http/httplib.h
+        server_frame/include/third/lua/lauxlib.h
+        server_frame/include/third/lua/lua.h
+        server_frame/include/third/lua/lua.hpp
+        server_frame/include/third/lua/luaconf.h
+        server_frame/include/third/lua/lualib.h
+        server_frame/include/third/nlohmann/json.hpp
+        server_frame/include/third/nlohmann/json_wrap.h
+        server_frame/include/third/snappy/snappy-c.h
+        server_frame/include/third/snappy/snappy-sinksource.h
+        server_frame/include/third/snappy/snappy-stubs-public.h
+        server_frame/include/third/snappy/snappy.h
+        server_frame/include/third/sol/forward.hpp
+        server_frame/include/third/sol/sol.hpp
+        server_frame/include/third/spdlog/contrib/sinks/step_file_sink.h
+        server_frame/include/third/spdlog/details/async_log_helper.h
+        server_frame/include/third/spdlog/details/async_logger_impl.h
+        server_frame/include/third/spdlog/details/file_helper.h
+        server_frame/include/third/spdlog/details/log_msg.h
+        server_frame/include/third/spdlog/details/logger_impl.h
+        server_frame/include/third/spdlog/details/mpmc_blocking_q.h
+        server_frame/include/third/spdlog/details/null_mutex.h
+        server_frame/include/third/spdlog/details/os.h
+        server_frame/include/third/spdlog/details/pattern_formatter_impl.h
+        server_frame/include/third/spdlog/details/registry.h
+        server_frame/include/third/spdlog/details/spdlog_impl.h
+        server_frame/include/third/spdlog/fmt/bundled/format.cc
+        server_frame/include/third/spdlog/fmt/bundled/format.h
+        server_frame/include/third/spdlog/fmt/bundled/ostream.cc
+        server_frame/include/third/spdlog/fmt/bundled/ostream.h
+        server_frame/include/third/spdlog/fmt/bundled/posix.cc
+        server_frame/include/third/spdlog/fmt/bundled/posix.h
+        server_frame/include/third/spdlog/fmt/bundled/printf.cc
+        server_frame/include/third/spdlog/fmt/bundled/printf.h
+        server_frame/include/third/spdlog/fmt/bundled/time.h
+        server_frame/include/third/spdlog/fmt/fmt.h
+        server_frame/include/third/spdlog/fmt/ostr.h
+        server_frame/include/third/spdlog/sinks/android_sink.h
+        server_frame/include/third/spdlog/sinks/ansicolor_sink.h
+        server_frame/include/third/spdlog/sinks/base_sink.h
+        server_frame/include/third/spdlog/sinks/dist_sink.h
+        server_frame/include/third/spdlog/sinks/file_sinks.h
+        server_frame/include/third/spdlog/sinks/msvc_sink.h
+        server_frame/include/third/spdlog/sinks/null_sink.h
+        server_frame/include/third/spdlog/sinks/ostream_sink.h
+        server_frame/include/third/spdlog/sinks/sink.h
+        server_frame/include/third/spdlog/sinks/stdout_sinks.h
+        server_frame/include/third/spdlog/sinks/syslog_sink.h
+        server_frame/include/third/spdlog/sinks/wincolor_sink.h
+        server_frame/include/third/spdlog/sinks/windebug_sink.h
+        server_frame/include/third/spdlog/async_logger.h
+        server_frame/include/third/spdlog/common.h
+        server_frame/include/third/spdlog/formatter.h
+        server_frame/include/third/spdlog/logger.h
+        server_frame/include/third/spdlog/spdlog.h
+        server_frame/include/third/spdlog/tweakme.h
+        server_frame/include/third/timer/timer_wheel.h
+        server_frame/include/third/tinyxml/tinyxml2.h
+        server_frame/include/third/asio.hpp
+        server_frame/include/thread/locked_queue.h
+        server_frame/include/thread/rwlock.hpp
+        server_frame/include/thread/spinlock.hpp
+        server_frame/include/thread/sync_queue.hpp
+        server_frame/include/thread/thread_pool.h
+        server_frame/include/time/cooling.h
+        server_frame/include/time/time.hpp
+        server_frame/include/utility/basic_functions.h
+        server_frame/include/utility/basic_types.h
+        server_frame/include/utility/comm_macro.h
+        server_frame/include/utility/noncopyable.hpp
+        server_frame/include/utility/profile_manager.h
+        server_frame/include/utility/puid.hpp
+        server_frame/include/utility/singleton.h
+        server_frame/include/svrlib.h
+        servers/center_server/src/center_mgr.cpp
+        servers/center_server/src/center_mgr.h
+        servers/center_server/src/game_server.cpp
+        servers/common/src/mysql_mgr/db_operator.cpp
+        servers/common/src/mysql_mgr/db_operator.h
+        servers/common/src/mysql_mgr/dbmysql_mgr.cpp
+        servers/common/src/mysql_mgr/dbmysql_mgr.h
+        servers/common/src/redis_mgr/redis_mgr.cpp
+        servers/common/src/redis_mgr/redis_mgr.h
+        servers/common/src/server_connect/server_client.cpp
+        servers/common/src/server_connect/server_client.h
+        servers/common/src/server_connect/server_connector.cpp
+        servers/common/src/server_connect/server_connector.h
+        servers/common/src/common_logic.cpp
+        servers/common/src/common_logic.h
+        servers/common/src/data_cfg_mgr.cpp
+        servers/common/src/data_cfg_mgr.h
+        servers/common/src/db_struct_define.h
+        servers/common/src/game_define.h
+        servers/common/src/game_server_config.cpp
+        servers/common/src/game_server_config.h
+        servers/common/src/player_base.cpp
+        servers/common/src/player_base.h
+        servers/common/src/player_mgr.cpp
+        servers/common/src/player_mgr.h
+        servers/game_frame/src/game_table/game_room.cpp
+        servers/game_frame/src/game_table/game_room.h
+        servers/game_frame/src/game_table/game_room_mgr.cpp
+        servers/game_frame/src/game_table/game_room_mgr.h
+        servers/game_frame/src/game_table/game_table.cpp
+        servers/game_frame/src/game_table/game_table.h
+        servers/game_frame/src/game_table/game_table_coin.cpp
+        servers/game_frame/src/game_table/game_table_coin.h
+        servers/game_frame/src/lua_logic/lua_logic.cpp
+        servers/game_frame/src/lua_logic/lua_logic.h
+        servers/game_frame/src/net/center_client.cpp
+        servers/game_frame/src/net/center_client.h
+        servers/game_frame/src/net/lobby_mgr.cpp
+        servers/game_frame/src/net/lobby_mgr.h
+        servers/game_frame/src/net/msg_lobby_handle.cpp
+        servers/game_frame/src/net/msg_lobby_handle.h
+        servers/game_frame/src/robot/robot.cpp
+        servers/game_frame/src/robot/robot.h
+        servers/game_frame/src/robot/robot_mgr.cpp
+        servers/game_frame/src/robot/robot_mgr.h
+        servers/game_frame/src/game_player.cpp
+        servers/game_frame/src/game_player.h
+        servers/game_server/src/game_logic/kuaipao/game_kuaipao_table.cpp
+        servers/game_server/src/game_logic/kuaipao/game_kuaipao_table.h
+        servers/game_server/src/game_logic/kuaipao/kuaipao_logic.cpp
+        servers/game_server/src/game_logic/kuaipao/kuaipao_logic.h
+        servers/game_server/src/game_logic/landlord/game_land_table.cpp
+        servers/game_server/src/game_logic/landlord/game_land_table.h
+        servers/game_server/src/game_logic/landlord/land_logic.cpp
+        servers/game_server/src/game_logic/landlord/land_logic.h
+        servers/game_server/src/poker/poker_logic.cpp
+        servers/game_server/src/poker/poker_logic.h
+        servers/game_server/src/game_logic_mgr.cpp
+        servers/game_server/src/game_logic_mgr.h
+        servers/game_server/src/game_server.cpp
+        servers/lobby_server/src/client_msg/msg_client_handle.cpp
+        servers/lobby_server/src/client_msg/msg_client_handle.h
+        servers/lobby_server/src/client_msg/msg_plat_handle.cpp
+        servers/lobby_server/src/client_msg/msg_plat_handle.h
+        servers/lobby_server/src/lua_logic/lua_logic.cpp
+        servers/lobby_server/src/lua_logic/lua_logic.h
+        servers/lobby_server/src/mission/mission_mgr.cpp
+        servers/lobby_server/src/mission/mission_mgr.h
+        servers/lobby_server/src/net/center_client.cpp
+        servers/lobby_server/src/net/center_client.h
+        servers/lobby_server/src/net/game_server_mgr.cpp
+        servers/lobby_server/src/net/game_server_mgr.h
+        servers/lobby_server/src/game_server.cpp
+        servers/lobby_server/src/player.cpp
+        servers/lobby_server/src/player.h
+        servers/pb/src/base_msg_struct.pb.cc
+        servers/pb/src/base_msg_struct.pb.h
+        servers/pb/src/client_logic_msg.pb.cc
+        servers/pb/src/client_logic_msg.pb.h
+        servers/pb/src/error_code.pb.cc
+        servers/pb/src/error_code.pb.h
+        servers/pb/src/kuaipao_logic_msg.pb.cc
+        servers/pb/src/kuaipao_logic_msg.pb.h
+        servers/pb/src/land_logic_msg.pb.cc
+        servers/pb/src/land_logic_msg.pb.h
+        servers/pb/src/msg_define.pb.cc
+        servers/pb/src/msg_define.pb.h
+        servers/pb/src/servers_msg.pb.cc
+        servers/pb/src/servers_msg.pb.h)

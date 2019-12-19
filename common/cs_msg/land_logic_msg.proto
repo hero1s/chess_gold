@@ -1,0 +1,140 @@
+syntax = "proto3";
+package net;
+
+//--------------斗地主游戏消息--------------------------------------
+enum CLIENT_MSG_LAND
+{
+	S2C_MSG_LAND_NULL					= 0;
+	S2C_MSG_LAND_GAME_INFO				= 3101;// 游戏信息
+	S2C_MSG_LAND_START					= 3102;// 游戏开始
+	C2S_MSG_LAND_CALL_SCORE_REQ			= 3103;// 玩家叫分
+	S2C_MSG_LAND_CALL_SCORE				= 3104;// 玩家叫分
+	
+	C2S_MSG_LAND_REQ_HAND_CARD  		= 3105;// 请求手牌
+	S2C_MSG_LAND_HAND_CARD				= 3106;// 返回手牌
+	
+	S2C_MSG_LAND_BANKER_INFO			= 3107;// 庄家信息
+	
+	C2S_MSG_LAND_OUT_CARD_REQ			= 3108;// 玩家出牌
+	S2C_MSG_LAND_OUT_CARD				= 3109;// 玩家出牌
+
+	C2S_MSG_LAND_PASS_CARD_REQ			= 3110;// 放弃出牌
+	S2C_MSG_LAND_PASS_CARD				= 3111;// 放弃出牌
+	S2C_MSG_LAND_GAME_OVER				= 3112;// 游戏结束
+}
+
+//-------------斗地主游戏消息---------------------------------------
+
+// 斗地主类型
+enum emLAND_TYPE
+{
+	LAND_TYPE_Common 		= 0;	// 普通斗地主
+	
+}
+
+// 游戏信息
+message msg_land_game_info_rep
+{
+	uint32 bomb_count  				= 1; // 炸弹数	
+	uint32 banker_user 				= 2; // 庄家
+	uint32 cur_user					= 3; // 当前玩家
+	repeated uint32 call_score 		= 4; // 玩家叫分
+	uint32 turn_winer				= 5; // 出牌玩家
+	uint32 first_user				= 6; // 第一个玩家
+	repeated uint32 turn_card_data  = 7; // 出的牌
+	repeated uint32 banker_card		= 8; // 庄家底牌
+	repeated uint32 hand_card_count = 9; // 手牌数(大家的手牌数)
+	repeated uint32 hand_card_data  = 10;// 手牌(自己的手牌)
+	uint32 game_state				= 11;//
+	uint32 wait_time				= 12;// 定时器剩余时间
+	
+}
+// 游戏开始
+message msg_land_start_rep
+{
+	uint32 start_user 					= 1;	// 开始玩家
+	uint32 cur_user   					= 2; 	// 当前玩家
+	uint32 valid_card_data 				= 3;	// 明牌扑克
+	uint32 valid_card_index				= 4;	// 明牌位置
+	repeated uint32 card_data 			= 5;	// 扑克列表	
+	uint32 cur_round					= 6;	// 当前局数
+	
+}
+// 玩家叫分
+message msg_land_call_score_req
+{
+	uint32 call_score 	= 1;	// 叫分数目(0放弃,1,2,3叫分数)	
+}
+// 玩家叫分
+message msg_land_call_score_rep
+{
+	uint32 cur_user		= 1;	// 当前玩家
+	uint32 call_user	= 2;	// 叫分玩家
+	uint32 call_score	= 3;	// 	
+}
+
+// 请求手牌
+message msg_land_req_hand_card_req
+{
+	uint32 chair_id = 1;	
+}
+// 返回手牌
+message msg_land_hand_card_rep
+{
+	uint32 chair_id 			= 1;		
+	repeated uint32 card_data 	= 2;	// 扑克列表
+}
+
+// 庄家信息
+message msg_land_banker_info_rep
+{
+	uint32 banker_user			= 1;	// 庄家玩家
+	uint32 cur_user				= 2;	// 当前玩家
+	uint32 call_score  			= 3;	// 庄家叫分
+	repeated uint32 banker_card = 4;	// 庄家扑克
+	
+}
+// 玩家出牌
+message msg_land_out_card_req
+{
+	repeated uint32 card_data 		= 1;	// 扑克数据		
+
+}
+// 玩家出牌
+message msg_land_out_card_rep
+{
+	uint32 cur_user 				= 1;	// 当前玩家
+	uint32 out_card_user 			= 2;	// 出牌玩家
+	repeated uint32 card_data 		= 3;	// 扑克列表
+}
+// 放弃出牌
+message msg_land_pass_card_req
+{
+	uint32 reason = 1;	
+}
+// 放弃出牌
+message msg_land_pass_card_rep
+{
+	uint32 turn_over		= 1;	// 一轮结束
+	uint32 cur_user			= 2;	// 当前玩家
+	uint32 pass_card_user 	= 3;	// 放弃玩家
+}
+// 游戏结束
+message msg_land_game_over_rep
+{
+	repeated int64 		scores				= 1;	// 游戏积分		 
+	uint32 				chun_tian			= 2;	// 春天标志
+	uint32     			fan_chun_tian 		= 3;	// 反春天标志
+	uint32				bomb_count			= 4;	// 炸弹个数
+	repeated uint32		each_bomb_counts	= 5;	// 炸弹个数
+	uint32				banker_score		= 6;	// 叫分数
+	repeated uint32		card_counts			= 7;	// 扑克数目
+	repeated uint32     hand_card_data		= 8;	// 扑克列表
+
+}
+
+//-----------------斗地主游戏消息-----------------------------------
+
+
+
+

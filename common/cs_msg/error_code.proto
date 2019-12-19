@@ -1,0 +1,102 @@
+syntax = "proto3";
+package net;
+
+// 结果码	
+enum RESULT_CODE
+{
+	RESULT_CODE_FAIL 			= 0; // 失败
+	RESULT_CODE_SUCCESS			= 1; // 成功
+	RESULT_CODE_CION_ERROR  	= 3; // 财富币金额错误
+	RESULT_CODE_PASSWD_ERROR	= 4; // 密码错误
+	RESULT_CODE_NEED_INLOBBY	= 5; // 必须在大厅中操作
+	RESULT_CODE_REPEAT_GET		= 6; // 重复领取
+	RESULT_CODE_NOT_COND		= 7; // 不满足条件
+	RESULT_CODE_ERROR_PARAM		= 8; // 参数错误
+	RESULT_CODE_NOT_TABLE		= 9; // 桌子不存在
+	RESULT_CODE_NOT_OWER		= 10;// 不属于你的
+	RESULT_CODE_BLACKLIST		= 11;// 黑名单
+	RESULT_CODE_NOT_DIAMOND		= 12;// 钻石不足
+	RESULT_CODE_ERROR_PLAYERID	= 13;// 错误的玩家ID
+	RESULT_CODE_TABLE_FULL		= 14;// 桌子已满
+	RESULT_CODE_GAMEING			= 15;// 游戏中不能操作
+	RESULT_CODE_ERROR_STATE		= 16;// 错误状态
+	RESULT_CODE_LOGIN_OTHER		= 17;// 别处登录
+	RESULT_CODE_SVR_REPAIR		= 18;// 服务器维护
+	RESULT_CODE_CDING			= 19;// cd冷却中
+	RESULT_CODE_EXIST_OBJ		= 20;// 操作对象占用了
+	RESULT_CODE_ENTER_SVR_FAIL  = 21;// 进入游戏服失败
+	
+}
+
+//  任务类型
+enum MISSION_TYPE
+{
+	MISSION_TYPE_NULL		= 0;
+	MISSION_TYPE_PLAY  		= 1; // 游戏对局	
+	MISSION_TYPE_WIN   		= 2; // 游戏胜
+	
+}
+// 任务循环类型
+enum MISSION_CYCLE_TYPE
+{
+	MISSION_CYCLE_TYPE_DAY  	= 0; // 日循环
+	MISSION_CYCLE_TYPE_WEEK 	= 1; // 周循环
+	MISSION_CYCLE_TYPE_MONTH 	= 2; // 月循环
+	
+}
+
+
+// 游戏类型
+enum GAME_CATE_TYPE
+{
+	GAME_CATE_NULL				= 0;
+	GAME_CATE_LAND  			= 1; 		// 斗地主
+	GAME_CATE_KUAIPAO			= 2;		// 跑得快
+	
+	GAME_CATE_MAX_TYPE			= 3;		// 最大类型
+}
+
+// 桌子台费类型
+enum TABLE_FEE_TYPE
+{
+	TABLE_FEE_TYPE_NO		= 0; // 不收费
+	TABLE_FEE_TYPE_ALLBASE	= 1; // 每人收取底分百分比服务费
+	TABLE_FEE_TYPE_WIN		= 2; // 抽取赢家百分比
+}
+// 桌子状态
+enum TABLE_STATE
+{
+	TABLE_STATE_FREE 		= 0; // 等待开始
+	TABLE_STATE_CALL 		= 1; // 叫分状态
+	TABLE_STATE_PLAY 		= 2; // 游戏进行
+	TABLE_STATE_WAIT 		= 3; // 等待状态	
+	TABLE_STATE_GAME_END	= 4; // 游戏结算状态
+	TABLE_STATE_PIAO_FEN	= 5; // 飘分状态
+	TABLE_STATE_RECYCLE		= 6; // 回收状态
+}
+
+// 金流操作类型
+enum emACCTRAN_OPER_TYPE 
+{
+	emACCTRAN_OPER_TYPE_NULL			= 0;
+    emACCTRAN_OPER_TYPE_BuyCard 		= 1;        // 充值房卡
+    emACCTRAN_OPER_TYPE_GIVE 			= 2;        // 赠送
+    emACCTRAN_OPER_TYPE_GAME 			= 3;        // 游戏输赢
+    emACCTRAN_OPER_TYPE_TASK 			= 4;        // 任务奖励
+    emACCTRAN_OPER_TYPE_FEE 			= 5;        // 台费
+    emACCTRAN_OPER_TYPE_LOGIN 			= 6;        // 登陆奖励
+    emACCTRAN_OPER_TYPE_BANKRUPT 		= 7;        // 破产补助
+    emACCTRAN_OPER_TYPE_MAIL 			= 8;        // 邮件领取
+    emACCTRAN_OPER_TYPE_SAFEBOX 		= 9;        // 保险箱操作
+    emACCTRAN_OPER_TYPE_PROOM 			= 10;       // 开房费
+    emACCTRAN_OPER_TYPE_BACKSITE 		= 11;       // 后台赠送
+    emACCTRAN_OPER_TYPE_SysGive 		= 12;       // 系统赠送
+    emACCTRAN_OPER_TYPE_SysChange 		= 13;       // 系统修改
+    emACCTRAN_OPER_TYPE_Exchange 		= 14;       // 兑换
+
+};
+
+
+
+
+
