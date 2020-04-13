@@ -22,6 +22,7 @@ CGameLogicMgr::~CGameLogicMgr() {
 }
 
 bool CGameLogicMgr::Init() {
+    AutoProfile("CGameLogicMgr::Init");
     auto gameType = CDataCfgMgr::Instance().GetGameType();
 
     // 普通场配置房间

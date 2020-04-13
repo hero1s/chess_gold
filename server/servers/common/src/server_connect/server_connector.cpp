@@ -26,6 +26,7 @@ CSvrConnectorMgr::~CSvrConnectorMgr() {
 }
 
 void CSvrConnectorMgr::OnTimer() {
+    AutoProfile("CSvrConnectorMgr::OnTimer");
     CApplication::Instance().schedule(&m_timer, 3000);
 
     if (CApplication::Instance().GetStatus() != m_curSvrInfo.status())

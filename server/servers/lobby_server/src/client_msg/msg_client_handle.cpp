@@ -35,6 +35,7 @@ CHandleClientMsg::~CHandleClientMsg() {
 }
 
 int CHandleClientMsg::OnRecvClientMsg() {
+    AutoProfile("CHandleClientMsg::OnRecvClientMsg");
     auto ret = CProtobufHandleBase::OnRecvClientMsg();
     if (ret == 1)
     {

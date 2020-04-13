@@ -33,6 +33,7 @@ void CMissionMgr::SetMission(map<uint32_t, stUserMission> &mission) {
 }
 
 void CMissionMgr::SaveMiss() {
+    AutoProfile("CMissionMgr::SaveMiss");
     CDBMysqlMgr::Instance().SaveUserMission(m_pHost->GetUID(), m_mission);
     vector<uint32_t> dels;
     for (auto &it : m_mission)
@@ -89,6 +90,7 @@ void CMissionMgr::GetMission() {
 
 //操作用户任务
 void CMissionMgr::ActMission(uint16_t type, uint32_t value, uint32_t cate1, uint32_t cate2, uint32_t cate3, uint32_t cate4) {
+    AutoProfile("CMissionMgr::ActMission");
     for (auto &it : m_mission)
     {
         //已完成的任务不再累加

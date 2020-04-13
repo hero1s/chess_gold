@@ -32,11 +32,13 @@ CDBMysqlMgr::~CDBMysqlMgr() {
 }
 
 void CDBMysqlMgr::OnTimer() {
+    AutoProfile("CDBMysqlMgr::OnTimer");
     CApplication::Instance().schedule(&m_reportTimer, 20 * 1000);
     ReportOnlines();
 }
 
 bool CDBMysqlMgr::Init(const vector<stDBConf> &DBConfs) {
+    AutoProfile("CDBMysqlMgr::Init");
     m_svrID = CApplication::Instance().GetServerID();
     m_DBConfs.clear();
     for (uint32_t i = 0; i < DBConfs.size(); ++i)

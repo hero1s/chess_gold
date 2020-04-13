@@ -15,6 +15,7 @@ CPlayerMgr::~CPlayerMgr() {
 }
 
 void CPlayerMgr::OnTimer() {
+    AutoProfile("CPlayerMgr::OnTimer");
     OnTimeTick();
     CheckRecoverPlayer();
     CApplication::Instance().schedule(&m_timer, 1000);
@@ -37,6 +38,7 @@ void CPlayerMgr::ShutDown() {
 }
 
 void CPlayerMgr::OnTimeTick() {
+    AutoProfile("CPlayerMgr::OnTimeTick");
     static uint64_t uProcessTime = 0;
     uint64_t uTime = time::getSysTime();
     if (!uProcessTime)

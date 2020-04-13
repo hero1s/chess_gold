@@ -38,6 +38,7 @@ CHandleLobbyMsg::~CHandleLobbyMsg() {
 }
 
 int CHandleLobbyMsg::OnRecvClientMsg() {
+    AutoProfile("CHandleLobbyMsg::OnRecvClientMsg");
     LOG_DEBUG("收到大厅服务器 {} 消息:uin:{}--cmd:{}",m_connPtr->GetUID(), m_head->uin, m_head->msgID);
     if (CProtobufHandleBase::OnRecvClientMsg() == 1)
     {

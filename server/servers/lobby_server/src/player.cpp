@@ -174,6 +174,7 @@ void CPlayer::ReLogin() {
 }
 
 void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay) {
+    AutoProfile("CPlayer::OnTimeTick");
     if (!IsPlaying())
     {
         return;
@@ -215,6 +216,7 @@ void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay) {
 
 // 是否需要回收
 bool CPlayer::NeedRecover() {
+    AutoProfile("CPlayer::NeedRecover");
     //服务器维护状态
     if (CApplication::Instance().GetStatus() == emSERVER_STATE_REPAIR)
     {

@@ -13,6 +13,17 @@
   <component name="ChangeListManager">
     <list default="true" id="e2b1593d-f1b3-402e-9c50-e34285d880c2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_frame" beforeDir="false" afterPath="$PROJECT_DIR$/server_frame" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/common/src/data_cfg_mgr.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/servers/common/src/data_cfg_mgr.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/common/src/mysql_mgr/dbmysql_mgr.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/servers/common/src/mysql_mgr/dbmysql_mgr.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/common/src/player_mgr.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/servers/common/src/player_mgr.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/common/src/server_connect/server_connector.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/servers/common/src/server_connect/server_connector.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/game_frame/src/game_table/game_room.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/servers/game_frame/src/game_table/game_room.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/game_frame/src/net/msg_lobby_handle.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/servers/game_frame/src/net/msg_lobby_handle.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/game_server/src/game_logic_mgr.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/servers/game_server/src/game_logic_mgr.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/lobby_server/src/client_msg/msg_client_handle.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/servers/lobby_server/src/client_msg/msg_client_handle.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/lobby_server/src/mission/mission_mgr.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/servers/lobby_server/src/mission/mission_mgr.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/lobby_server/src/player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/servers/lobby_server/src/player.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,6 +81,13 @@
       <option name="presentableId" value="Default" />
       <updated>1576761182909</updated>
       <workItem from="1576761184226" duration="1747000" />
+      <workItem from="1577448967611" duration="600000" />
+      <workItem from="1582772287487" duration="39000" />
+      <workItem from="1586339801021" duration="449000" />
+      <workItem from="1586499607724" duration="1098000" />
+      <workItem from="1586775055259" duration="1332000" />
+      <workItem from="1586776884191" duration="801000" />
+      <workItem from="1586778286864" duration="88000" />
     </task>
     <servers />
   </component>
@@ -81,7 +99,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
