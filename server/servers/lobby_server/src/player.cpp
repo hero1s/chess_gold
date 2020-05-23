@@ -360,6 +360,7 @@ void CPlayer::NotifyLobbyLogin() {
 
 // 构建初始化
 void CPlayer::BuildInit() {
+    AutoProfile("CPlayer::BuildInit");
     LOG_DEBUG("player build init :{}", GetUID());
 
     // 检测日常
@@ -449,6 +450,7 @@ void CPlayer::ActionReqBackLobby(uint8_t action) {
 
 // 进入游戏服务器
 uint16_t CPlayer::EnterGameSvr(uint16_t gameType) {
+    AutoProfile("CPlayer::EnterGameSvr");
     auto curID = GetGameSvrID();
     if (curID != 0)
     {//重连
@@ -528,6 +530,7 @@ void CPlayer::SyncChangeAccountValue(uint16_t operType, uint16_t subType, int64_
 
 // 保存登陆奖励状态
 void CPlayer::SaveLoginInfo() {
+    AutoProfile("CPlayer::SaveLoginInfo");
     LOG_DEBUG("保存登陆login信息:{}", GetUID());
     CDBMysqlMgr::Instance().UpdatePlayerLoginInfo(GetUID(), m_baseInfo.offline_time, m_baseInfo.clogin, m_baseInfo.weeklogin, 0);
 }

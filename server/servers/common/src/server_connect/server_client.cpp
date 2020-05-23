@@ -78,6 +78,7 @@ CServerClientMgr::~CServerClientMgr() {
 }
 
 void CServerClientMgr::OnTimer() {
+    AutoProfile("CServerClientMgr::OnTimer");
     if (time::getSysTime() - m_lastCountTime > MINUTE)
     {
         m_msgMaxCount = std::max(m_msgMaxCount, m_msgMinCount);
