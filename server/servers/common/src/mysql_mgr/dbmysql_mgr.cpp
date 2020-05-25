@@ -32,13 +32,13 @@ CDBMysqlMgr::~CDBMysqlMgr() {
 }
 
 void CDBMysqlMgr::OnTimer() {
-    AutoProfile("CDBMysqlMgr::OnTimer");
+    AUTOPROFILE("CDBMysqlMgr::OnTimer");
     CApplication::Instance().schedule(&m_reportTimer, 20 * 1000);
     ReportOnlines();
 }
 
 bool CDBMysqlMgr::Init(const vector<stDBConf> &DBConfs) {
-    AutoProfile("CDBMysqlMgr::Init");
+    AUTOPROFILE("CDBMysqlMgr::Init");
     m_svrID = CApplication::Instance().GetServerID();
     m_DBConfs.clear();
     for (uint32_t i = 0; i < DBConfs.size(); ++i)
@@ -103,7 +103,7 @@ bool CDBMysqlMgr::ConnectSyncDB() {
 }
 
 void CDBMysqlMgr::AddAsyncSql(uint8_t dbType, string strSql) {
-    AutoProfile("CDBMysqlMgr::AddAsyncSql");
+    AUTOPROFILE("CDBMysqlMgr::AddAsyncSql");
     if (dbType >= m_pAsyncTasks.size())
     {
         LOG_ERROR("overstep dbIndexTypeMax:{}", dbType);
@@ -121,7 +121,7 @@ void CDBMysqlMgr::AddAsyncSql(uint8_t dbType, string strSql) {
 
 // 上报服务器在线人数
 void CDBMysqlMgr::ReportOnlines() {
-    AutoProfile("CDBMysqlMgr::ReportOnlines");
+    AUTOPROFILE("CDBMysqlMgr::ReportOnlines");
     uint32_t onlines = CPlayerMgr::Instance().GetOnlines();
     SQLJoin sqlJoin;
     sqlJoin.add_pair("svrid", CApplication::Instance().GetServerID());
@@ -144,7 +144,7 @@ void CDBMysqlMgr::ReportOnlines() {
 }
 
 void CDBMysqlMgr::UpdatePlayerLoginInfo(uint32_t uid, uint32_t offlinetime, uint32_t clogin, uint32_t weeklogin, uint32_t bankrupt) {
-    AutoProfile("CDBMysqlMgr::UpdatePlayerLoginInfo");
+    AUTOPROFILE("CDBMysqlMgr::UpdatePlayerLoginInfo");
     auto strSql = CStringUtility::FormatToString("UPDATE user SET offlinetime=%d,clogin=%d,weeklogin=%d,bankrupt=%d WHERE uid=%u;", \
             offlinetime, clogin, weeklogin, bankrupt, uid);
     AddAsyncSql(DB_INDEX_TYPE_ACC, strSql);

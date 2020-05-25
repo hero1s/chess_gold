@@ -20,7 +20,7 @@ CRedisMgr::~CRedisMgr() {
 }
 
 void CRedisMgr::OnTimer() {
-    AutoProfile("CRedisMgr::OnTimer");
+    AUTOPROFILE("CRedisMgr::OnTimer");
     CRedisWrap::OnTimer();
     AutoUpdateServerStatus();
 

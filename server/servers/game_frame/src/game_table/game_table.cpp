@@ -26,7 +26,7 @@ CGameTable::~CGameTable() {
 }
 
 void CGameTable::OnProccess() {
-    AutoProfile("CGameTable::OnProccess");
+    AUTOPROFILE("CGameTable::OnProccess");
     OnTimeTick();
     CApplication::Instance().schedule(&m_timer, 200);
 }

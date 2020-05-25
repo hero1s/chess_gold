@@ -3,7 +3,7 @@
 --************ 服务器配置
 --*********************************************
 --数据库配置(改成只使用一个数据库地址toney)
-local database_config = { ip = "127.0.0.1", port = 3307, user = "root", passwd = "e23456" };
+local database_config = { ip = "127.0.0.1", port = 3306, user = "root", passwd = "e23456" };
 local database_dbname = {}
 database_dbname[0] = "test_toney";
 database_dbname[1] = "test_toney";

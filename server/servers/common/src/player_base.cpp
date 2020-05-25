@@ -173,7 +173,7 @@ void CPlayerBase::ReLogin() {
 }
 
 void CPlayerBase::OnTimeTick(uint64_t uTime, bool bNewDay) {
-    AutoProfile("CPlayerBase::OnTimeTick");
+    AUTOPROFILE("CPlayerBase::OnTimeTick");
 }
 
 // 是否需要回收

@@ -214,7 +214,7 @@ void CApplication::ConfigurationChanged() {
 }
 
 void CApplication::Tick(uint64_t diffTime) {
-    AutoProfile("CApplication::Tick");
+    AUTOPROFILE("CApplication::Tick");
 
 }
 

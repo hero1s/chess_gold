@@ -34,7 +34,7 @@ void CDataCfgMgr::ShutDown() {
 }
 
 bool CDataCfgMgr::Reload() {
-    AutoProfile("CDataCfgMgr::Reload");
+    AUTOPROFILE("CDataCfgMgr::Reload");
     uint16_t sid = CApplication::Instance().GetServerID();
 
     if (m_svrType == emSERVER_TYPE_LOBBY)

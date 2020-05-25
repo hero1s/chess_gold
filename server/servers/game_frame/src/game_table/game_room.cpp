@@ -26,7 +26,7 @@ CGameRoom::~CGameRoom() {
 }
 
 void CGameRoom::OnTimer() {
-    AutoProfile("CGameRoom::OnTimer");
+    AUTOPROFILE("CGameRoom::OnTimer");
     OnTimeTick();
     CApplication::Instance().schedule(&m_timer, 1000);
 }
@@ -58,7 +58,7 @@ void CGameRoom::ShutDown() {
 }
 
 void CGameRoom::OnTimeTick() {
-    AutoProfile("CGameRoom::OnTimeTick");
+    AUTOPROFILE("CGameRoom::OnTimeTick");
     if (m_coolMarry.isTimeOut())
     {
         MarryTable();

@@ -174,7 +174,7 @@ void CPlayer::ReLogin() {
 }
 
 void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay) {
-    AutoProfile("CPlayer::OnTimeTick");
+    AUTOPROFILE("CPlayer::OnTimeTick");
     if (!IsPlaying())
     {
         return;
@@ -216,7 +216,7 @@ void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay) {
 
 // 是否需要回收
 bool CPlayer::NeedRecover() {
-    AutoProfile("CPlayer::NeedRecover");
+    AUTOPROFILE("CPlayer::NeedRecover");
     //服务器维护状态
     if (CApplication::Instance().GetStatus() == emSERVER_STATE_REPAIR)
     {
@@ -360,7 +360,7 @@ void CPlayer::NotifyLobbyLogin() {
 
 // 构建初始化
 void CPlayer::BuildInit() {
-    AutoProfile("CPlayer::BuildInit");
+    AUTOPROFILE("CPlayer::BuildInit");
     LOG_DEBUG("player build init :{}", GetUID());
 
     // 检测日常
@@ -450,7 +450,7 @@ void CPlayer::ActionReqBackLobby(uint8_t action) {
 
 // 进入游戏服务器
 uint16_t CPlayer::EnterGameSvr(uint16_t gameType) {
-    AutoProfile("CPlayer::EnterGameSvr");
+    AUTOPROFILE("CPlayer::EnterGameSvr");
     auto curID = GetGameSvrID();
     if (curID != 0)
     {//重连
@@ -530,7 +530,7 @@ void CPlayer::SyncChangeAccountValue(uint16_t operType, uint16_t subType, int64_
 
 // 保存登陆奖励状态
 void CPlayer::SaveLoginInfo() {
-    AutoProfile("CPlayer::SaveLoginInfo");
+    AUTOPROFILE("CPlayer::SaveLoginInfo");
     LOG_DEBUG("保存登陆login信息:{}", GetUID());
     CDBMysqlMgr::Instance().UpdatePlayerLoginInfo(GetUID(), m_baseInfo.offline_time, m_baseInfo.clogin, m_baseInfo.weeklogin, 0);
 }
